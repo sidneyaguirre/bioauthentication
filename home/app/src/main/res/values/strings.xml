@@ -1,9 +1,19 @@
 <resources>
-    <string name="app_name">Spinner Example</string>
+    <string name="app_name">bioauthentication</string>
 
-    <string-array name="users">
-        <item>Sidney Aguirre</item>
-        <item>Jaime Jimenez</item>
-        <item>John Galeano</item>
-    </string-array>
+    <string name="pin_button">Pin</string>
+    <string name="pattern_button">Pattern</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="hint_users">Usuario</string>
+    <string name="hint_test_type">Test type</string>
+    <string name="app_title">Bio-Authentication</string>
+    <array name="users_array">
+        <item>Jaime</item>
+        <item>John</item>
+        <item>Sidney</item>
+    </array>
+    <array name="test_types_array">
+        <item>Real</item>
+        <item>Impostor</item>
+    </array>
 </resources>
