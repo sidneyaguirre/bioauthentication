@@ -1,4 +1,4 @@
-package com.example.home;
+package com.example.bioauthentication;
 
 import org.junit.Test;
 
