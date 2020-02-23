@@ -47,6 +47,7 @@
         app:indicatorType="fillWithAnimation"
         app:keypadButtonSize="72dp"
         app:keypadShowDeleteButton="true"
+        app:keypadButtonBackgroundDrawable="@null"
         app:keypadTextColor="@color/colorPrimaryDark"
         app:keypadTextSize="14dp" />
 

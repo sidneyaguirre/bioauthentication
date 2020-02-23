@@ -70,9 +70,10 @@
             android:id="@+id/pin_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight=".5"
             android:text="@string/pin_button"
-            android:layout_marginRight="20dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:textSize="24sp" />
 
@@ -80,8 +81,9 @@
             android:id="@+id/pattern_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
+            android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_weight=".5"
             android:text="@string/pattern_button"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:textSize="24sp" />
