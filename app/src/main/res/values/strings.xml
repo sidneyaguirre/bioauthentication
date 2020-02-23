@@ -1,12 +1,14 @@
 <resources>
-    <string name="app_name">bioauthentication</string>
+    <string name="app_name">Bio-Authentication</string>
 
-    <string name="pin_button">Pin</string>
+    <string name="pin_button" translatable="false">Pin</string>
     <string name="pattern_button">Pattern</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="hint_users">Usuario</string>
+    <string name="hint_users">User</string>
     <string name="hint_test_type">Test type</string>
-    <string name="app_title">Bio-Authentication</string>
+    <string name="empty_values">Select a user and a test type</string>
+    <string name="unlock_first">Please Unlock first</string>
+    <string name="input_text">Input password</string>
+    <string name="welcome_app">Hello Bio-authentication!</string>
     <array name="users_array">
         <item>Jaime</item>
         <item>John</item>

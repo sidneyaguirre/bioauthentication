@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bio-Authentication</string>
+    <string name="unlock_first">Por favor desbloquea primero</string>
+    <string name="welcome_app">Hola Bio-autentificación!</string>
+    <string name="pattern_button">Patron</string>
+    <string name="input_text">Contraseña de entrada</string>
+    <string name="hint_users">Usuario</string>
+    <string name="hint_test_type">Tipo de prueba</string>
+    <string name="empty_values">Selecciona un usuario y un tipo de prueba</string>
+</resources>
