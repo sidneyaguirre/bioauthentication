@@ -10,23 +10,24 @@
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="151dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/profile_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image"
         android:layout_alignStart="@+id/pin_lock_view"
         android:layout_alignLeft="@+id/pin_lock_view"
         android:layout_alignEnd="@+id/pin_lock_view"
         android:layout_alignRight="@+id/pin_lock_view"
-        android:layout_marginTop="249dp"
+        android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/unlock_first"
-        android:textColor="@color/white"
         android:textSize="24sp" />
 
     <com.andrognito.pinlockview.IndicatorDots
@@ -47,7 +48,7 @@
         app:indicatorType="fillWithAnimation"
         app:keypadButtonSize="72dp"
         app:keypadShowDeleteButton="true"
-        app:keypadButtonBackgroundDrawable="@null"
+        app:keypadButtonBackgroundDrawable="@drawable/lock_shape"
         app:keypadTextColor="@color/colorPrimaryDark"
         app:keypadTextSize="14dp" />
 

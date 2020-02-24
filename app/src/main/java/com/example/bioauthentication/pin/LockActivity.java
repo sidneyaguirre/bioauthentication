@@ -29,17 +29,17 @@ public class LockActivity extends AppCompatActivity {
         mPinLockView = findViewById(R.id.pin_lock_view);
         mIndicatorDots = findViewById(R.id.indicator_dots);
 
-        //attach lock view with dot indicator
+        //attach lock_shape view with dot indicator
         mPinLockView.attachIndicatorDots(mIndicatorDots);
 
-        //set lock code length
+        //set lock_shape code length
         mPinLockView.setPinLength(6);
 
-        //set listener for lock code change
+        //set listener for lock_shape code change
         mPinLockView.setPinLockListener(new PinLockListener() {
             @Override
             public void onComplete(String pin) {
-                Log.d(TAG, "lock code: " + pin);
+                Log.d(TAG, "lock_shape code: " + pin);
 
                 //User input true code
                 if (pin.equals(TRUE_CODE)) {
@@ -54,7 +54,7 @@ public class LockActivity extends AppCompatActivity {
 
             @Override
             public void onEmpty() {
-                Log.d(TAG, "lock code is empty!");
+                Log.d(TAG, "lock_shape code is empty!");
             }
 
             @Override
