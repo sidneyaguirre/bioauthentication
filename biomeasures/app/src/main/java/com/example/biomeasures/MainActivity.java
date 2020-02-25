@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.service.autofill.TextValueSanitizer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -39,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
                 x = ev.getX();
                 y = ev.getY();
                 System.out.println("COORDS: x-> " + x + ", y-> " + y );
-                press = ev.getPressure();
+                press = ev.getPressure(ev.getPointerId(0));
                 System.out.println("PRESSURE: " + press);
-                toucharea = ev.getSize();
+                toucharea = ((float) Math.pow(10,10))*ev.getSize();
                 System.out.println("TOUCH AREA: " + toucharea);
                 message = "COORDS: x-> " + x + ", y-> " + y +"\nPressure: " + press + "\nTouch Area: " + toucharea;
                 //message = String.valueOf(press);
+                Log.d("PRESSURE", ev.toString());
                 measures.setText(message);
                 System.out.println(message);
                 return false;
