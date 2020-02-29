@@ -9,6 +9,10 @@
     <string name="unlock_first">Please Unlock first</string>
     <string name="input_text">Input password</string>
     <string name="welcome_app">Hello Bio-authentication!</string>
+    <string name="add_user_button">New user</string>
+    <string name="add_user_btn_text">Add User</string>
+    <string name="user_name_placeholder">Full Name</string>
+    <string name="create_user_text">Create New User</string>
     <array name="users_array">
         <item>Jaime</item>
         <item>John</item>

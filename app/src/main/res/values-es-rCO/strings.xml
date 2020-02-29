@@ -8,4 +8,8 @@
     <string name="hint_users">Usuario</string>
     <string name="hint_test_type">Tipo de prueba</string>
     <string name="empty_values">Selecciona un usuario y un tipo de prueba</string>
+    <string name="add_user_button">Nuevo usuario</string>
+    <string name="add_user_btn_text">Añadir usuario</string>
+    <string name="user_name_placeholder">Nombre completo</string>
+    <string name="create_user_text">Crear nuevo usuario</string>
 </resources>

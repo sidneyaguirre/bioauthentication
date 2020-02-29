@@ -16,7 +16,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".pattern.CreatePasswordActivity"/>
-        <activity android:name=".pattern.InputPasswordActivity"/>
-        <activity android:name=".pin.LockActivity"/>
-        <activity android:name=".home.HomeScreenActivity"/>
-        <activity android:name=".ProgramActivity"/>
+        <activity android:name=".pattern.CreatePasswordActivity" />
+        <activity android:name=".pattern.InputPasswordActivity" />
+        <activity android:name=".pin.LockActivity" />
+        <activity android:name=".home.HomeScreenActivity" />
+        <activity android:name=".user.NewUserActivity"/>
+        <activity android:name=".ProgramActivity" />
     </application>
 
 </manifest>
