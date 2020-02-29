@@ -3,6 +3,7 @@ package com.example.bioauthentication.pin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 import com.example.bioauthentication.R;
 import com.example.bioauthentication.home.HomeScreenActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LockActivity extends AppCompatActivity {
 
@@ -19,10 +22,17 @@ public class LockActivity extends AppCompatActivity {
     private IndicatorDots mIndicatorDots;
     private final static String TAG = LockActivity.class.getSimpleName();
     private final static String TRUE_CODE = "123456";
+    private FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            Bundle extras = getIntent().getExtras();
+            if(extras != null){
+                Log.d(TAG, "onCreate: "+extras.getString("user"));
+            }
+        }
 
         setContentView(R.layout.activity_lock);
 

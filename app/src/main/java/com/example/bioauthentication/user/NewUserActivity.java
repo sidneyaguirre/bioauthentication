@@ -65,6 +65,8 @@ public class NewUserActivity extends AppCompatActivity {
                      public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
                          if(!b){
                              Toast.makeText(getApplicationContext(),R.string.user_already_exist,Toast.LENGTH_SHORT).show();
+                         }else{
+                             finish();
                          }
                      }
                  });
