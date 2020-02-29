@@ -1,7 +1,6 @@
 package com.example.bioauthentication.user;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 
 public class NewUserActivity extends AppCompatActivity {
 
@@ -51,12 +49,10 @@ public class NewUserActivity extends AppCompatActivity {
                          for (MutableData currentMutable : mutableData.getChildren()) {
                              User user = currentMutable.getValue(User.class);
                              assert user != null;
-                             if ((user.getName().trim()).equalsIgnoreCase(userName.trim())){
-                                 Log.d("TAG", "EQUALS ");
-                                 Transaction.abort();
+                             if ((user.getName().trim()).equalsIgnoreCase(userName.trim())) {
+                                 return Transaction.abort();
                              }
                              mayor = Math.max(user.getUid(), mayor);
-                             Log.d("TAG", "doTransaction: "+user.getName()+"user"+ userName);
                          }
                          final User newUser = new User();
                          newUser.setName(userName);
@@ -67,7 +63,9 @@ public class NewUserActivity extends AppCompatActivity {
 
                      @Override
                      public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
-                         Log.d("TAG", "onComplete: "+databaseError);
+                         if(!b){
+                             Toast.makeText(getApplicationContext(),R.string.user_already_exist,Toast.LENGTH_SHORT).show();
+                         }
                      }
                  });
              }

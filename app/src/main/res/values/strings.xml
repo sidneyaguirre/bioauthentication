@@ -14,6 +14,7 @@
     <string name="user_name_placeholder">Full Name</string>
     <string name="create_user_text">Create New User</string>
     <string name="required_value">Ingresa tu nombre completo</string>
+    <string name="user_already_exist">User already exist</string>
     <array name="users_array">
         <item>Jaime</item>
         <item>John</item>
