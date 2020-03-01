@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Bio-Authentication</string>
+
+    <string name="pin_button" translatable="false">Pin</string>
+    <string name="pattern_button">Pattern</string>
+    <string name="hint_users">User</string>
+    <string name="hint_test_type">Test type</string>
+    <string name="empty_values">Select a user and a test type</string>
+    <string name="unlock_first">Please Unlock first</string>
+    <string name="input_text">Input password</string>
+    <string name="welcome_app">Hello Bio-authentication!</string>
+    <string name="add_user_button">New user</string>
+    <string name="add_user_btn_text">Add User</string>
+    <string name="user_name_placeholder">Full Name</string>
+    <string name="create_user_text">Create New User</string>
+    <array name="users_array">
+        <item>Jaime</item>
+        <item>John</item>
+        <item>Sidney</item>
+    </array>
+    <array name="test_types_array">
+        <item>Real</item>
+        <item>Impostor</item>
+    </array>
+</resources>
