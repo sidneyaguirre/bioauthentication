@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">Spinner Example</string>
-
-    <string-array name="users">
-        <item>Sidney Aguirre</item>
-        <item>Jaime Jimenez</item>
-        <item>John Galeano</item>
-    </string-array>
-</resources>
