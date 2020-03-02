@@ -18,6 +18,8 @@ public class utils {
                 if(!usersValue.isEmpty() && !testTypeValue.isEmpty()){
                     Intent intent = new Intent(appContext, activityToLaunch);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("user",usersValue);
+                    intent.putExtra("testType",testTypeValue);
                     appContext.startActivity(intent);
                 } else {
                     Toast.makeText(appContext, R.string.empty_values,Toast.LENGTH_LONG).show();
