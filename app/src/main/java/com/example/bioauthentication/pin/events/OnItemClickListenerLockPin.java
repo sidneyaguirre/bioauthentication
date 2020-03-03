@@ -14,6 +14,7 @@ public class OnItemClickListenerLockPin implements RecyclerView.OnItemTouchListe
     @Override
     public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
 
+        //TODO aca va la logica para guardar x y y
         int boton = e.getActionButton();
         float x = e.getX();
         float y = e.getY();

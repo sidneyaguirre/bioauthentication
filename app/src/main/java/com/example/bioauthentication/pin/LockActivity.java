@@ -23,9 +23,11 @@ import com.andrognito.pinlockview.PinLockView;
 import com.example.bioauthentication.R;
 import com.example.bioauthentication.home.HomeScreenActivity;
 import com.example.bioauthentication.pin.adapters.LockPinAdapter;
+import com.example.bioauthentication.pin.entity.LockPin;
 import com.example.bioauthentication.pin.events.OnItemClickListenerLockPin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LockActivity extends AppCompatActivity {
 
@@ -40,10 +42,11 @@ public class LockActivity extends AppCompatActivity {
     private IndicatorDots mIndicatorDots;
     private final static String TAG = LockActivity.class.getSimpleName();
     private final static String TRUE_CODE = "1234";
+    private List<LockPin> lockPins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+            lockPins = new ArrayList<LockPin>();
 
 //        class Mlp implements PinLockAdapter.OnNumberClickListener{
 //
@@ -64,11 +67,22 @@ public class LockActivity extends AppCompatActivity {
         LockPinAdapter.OnNumberClickListener onNumberClickListener =
                 new LockPinAdapter.OnNumberClickListener() {
                     @Override
-                    public void onNumberClicked(int keyValue) {
-                        Log.d("hola", String.valueOf(keyValue));
+                    public void onNumberClicked(LockPin lockPin) {
+                            lockPins.add(lockPin);
+                            checkSizeLockPins();
                     }
                 };
+        LockPinAdapter.OnDeleteClickListener onDeleteClickListener =
+                new LockPinAdapter.OnDeleteClickListener() {
+                    @Override
+                    public void onDeleteClicked() {
+                        if(lockPins.size()>0){
+                            lockPins.remove(lockPins.size()-1);
+                        }
+                    }
+        };
         adapter.setOnNumberClickListener(onNumberClickListener);
+        adapter.setOnDeleteClickListener(onDeleteClickListener);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_lock_pin);
 
         // use this setting to improve performance if you know that changes
@@ -79,11 +93,11 @@ public class LockActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnItemTouchListener(new OnItemClickListenerLockPin());
+        //recyclerView.addOnItemTouchListener(new OnItemClickListenerLockPin());
 
 
 
-/*        mPinLockView = findViewById(R.id.pin_lock_view);
+        /*mPinLockView = findViewById(R.id.pin_lock_view);
         mIndicatorDots = findViewById(R.id.indicator_dots);
 
         //attach lock_shape view with dot indicator
@@ -146,5 +160,14 @@ public class LockActivity extends AppCompatActivity {
             }
         });*/
 
+    }
+
+    private void checkSizeLockPins() {
+        if(lockPins.size() == 4){
+            for (LockPin l : lockPins){
+                Toast.makeText(this,l.toString(),Toast.LENGTH_SHORT).show();
+            }
+            lockPins = new ArrayList<>();
+        }
     }
 }
