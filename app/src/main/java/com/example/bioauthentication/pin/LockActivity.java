@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,6 +27,13 @@ import com.example.bioauthentication.home.HomeScreenActivity;
 import com.example.bioauthentication.pin.adapters.LockPinAdapter;
 import com.example.bioauthentication.pin.entity.LockPin;
 import com.example.bioauthentication.pin.events.OnItemClickListenerLockPin;
+import com.example.bioauthentication.user.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +52,8 @@ public class LockActivity extends AppCompatActivity {
     private final static String TAG = LockActivity.class.getSimpleName();
     private final static String TRUE_CODE = "1234";
     private List<LockPin> lockPins;
+    private int sampleNumber;
+    private FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +72,47 @@ public class LockActivity extends AppCompatActivity {
         //mPinLockAdapter = new PinLockAdapter(getContext());
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_lock);
+
+        db = FirebaseDatabase.getInstance();
+        sampleNumber = 1;
+
+        Button newSampleBtn = findViewById(R.id.new_sample_btn);
+        newSampleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference pins = db.getReference("pins");
+                pins.runTransaction(new Transaction.Handler() {
+                    @NonNull
+                    @Override
+                    public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                        lockPins.size();
+                        for (int i=0; i< lockPins.size(); i++) {
+                            LockPin currentPin = lockPins.get(i);
+                            mutableData.child("jaime").child(""+sampleNumber).child(""+i).setValue(currentPin);
+                        }
+                        sampleNumber += 1;
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                        Log.d(TAG, "onComplete: "+b +" error: "+ databaseError);
+                    }
+                });
+            }
+        });
+
         LockPinAdapter adapter = new LockPinAdapter();
         LockPinAdapter.OnNumberClickListener onNumberClickListener =
                 new LockPinAdapter.OnNumberClickListener() {
                     @Override
                     public void onNumberClicked(LockPin lockPin) {
+                        if(!checkSizeLockPins(4)){
                             lockPins.add(lockPin);
-                            checkSizeLockPins();
+                            return;
+                        }
+                        Toast.makeText(getApplicationContext(),R.string.max_length_added,Toast.LENGTH_SHORT).show();
                     }
                 };
         LockPinAdapter.OnDeleteClickListener onDeleteClickListener =
@@ -162,12 +205,14 @@ public class LockActivity extends AppCompatActivity {
 
     }
 
-    private void checkSizeLockPins() {
-        if(lockPins.size() == 4){
-            for (LockPin l : lockPins){
+    private boolean checkSizeLockPins(int pingSize) {
+        if(lockPins.size() == pingSize){
+            /*for (LockPin l : lockPins){
                 Toast.makeText(this,l.toString(),Toast.LENGTH_SHORT).show();
             }
-            lockPins = new ArrayList<>();
+            lockPins = new ArrayList<>();*/
+            return true;
         }
+        return  false;
     }
 }
