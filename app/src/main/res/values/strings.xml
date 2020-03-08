@@ -26,4 +26,9 @@
     </array>
     <string name="required_value">Please digit your name completely</string>
     <string name="max_length_added">Pin already has the max length</string>
+    <string name="reset_sample">Reset last sample</string>
+    <string name="alert_dialog_title">Set pin length</string>
+    <string name="OK">Ok</string>
+    <string name="invalid_number">Select a valid option</string>
+    <string name="cancel">Cancel</string>
 </resources>

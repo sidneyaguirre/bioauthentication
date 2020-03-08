@@ -1,18 +1,23 @@
 package com.example.bioauthentication.pin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +58,9 @@ public class LockActivity extends AppCompatActivity {
     private final static String TRUE_CODE = "1234";
     private List<LockPin> lockPins;
     private int sampleNumber;
+    private int pinLength;
+    private User currentUser;
+    private String testType;
     private FirebaseDatabase db;
 
     @Override
@@ -70,12 +78,25 @@ public class LockActivity extends AppCompatActivity {
 
 
         //mPinLockAdapter = new PinLockAdapter(getContext());
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
 
+
+        Bundle b = getIntent().getExtras();
+        if ( b != null){
+            currentUser = (User) b.get("user");
+            testType = (String) b.get("testType");
+        }
         db = FirebaseDatabase.getInstance();
         sampleNumber = 1;
+
+        Button resetLastSample = findViewById(R.id.reset_sample_btn);
+        resetLastSample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lockPins = new ArrayList<>();
+            }
+        });
 
         Button newSampleBtn = findViewById(R.id.new_sample_btn);
         newSampleBtn.setOnClickListener(new View.OnClickListener() {
@@ -89,14 +110,17 @@ public class LockActivity extends AppCompatActivity {
                         lockPins.size();
                         for (int i=0; i< lockPins.size(); i++) {
                             LockPin currentPin = lockPins.get(i);
-                            mutableData.child("jaime").child(""+sampleNumber).child(""+i).setValue(currentPin);
+                            mutableData.child(currentUser.getUid()+"").child(testType).child("pin-length-"+pinLength).child("sample-"+sampleNumber).child(""+(i+1)).setValue(currentPin);
                         }
-                        sampleNumber += 1;
                         return Transaction.success(mutableData);
                     }
 
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                        if(b && checkSizeLockPins(pinLength)){
+                            sampleNumber += 1;
+                            lockPins = new ArrayList<>();
+                        }
                         Log.d(TAG, "onComplete: "+b +" error: "+ databaseError);
                     }
                 });
@@ -108,7 +132,7 @@ public class LockActivity extends AppCompatActivity {
                 new LockPinAdapter.OnNumberClickListener() {
                     @Override
                     public void onNumberClicked(LockPin lockPin) {
-                        if(!checkSizeLockPins(4)){
+                        if(!checkSizeLockPins(pinLength)){
                             lockPins.add(lockPin);
                             return;
                         }
@@ -138,7 +162,30 @@ public class LockActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         //recyclerView.addOnItemTouchListener(new OnItemClickListenerLockPin());
 
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.alert_dialog_title);
+        final Spinner input = new Spinner(this);
+        ArrayAdapter<Integer> options = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item);
+        options.addAll(4,6,8);
+        input.setAdapter(options);
+        builder.setView(input);
+        builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {
+                    pinLength = (int)input.getSelectedItem();
+                }catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.invalid_number,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.show();
 
         /*mPinLockView = findViewById(R.id.pin_lock_view);
         mIndicatorDots = findViewById(R.id.indicator_dots);
@@ -209,8 +256,7 @@ public class LockActivity extends AppCompatActivity {
         if(lockPins.size() == pingSize){
             /*for (LockPin l : lockPins){
                 Toast.makeText(this,l.toString(),Toast.LENGTH_SHORT).show();
-            }
-            lockPins = new ArrayList<>();*/
+            }*/
             return true;
         }
         return  false;

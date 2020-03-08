@@ -10,9 +10,10 @@ import android.widget.TextView;
 import com.example.bioauthentication.R;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
 
     private int uid;
     private String name;
