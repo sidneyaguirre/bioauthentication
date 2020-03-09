@@ -22,20 +22,10 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences preferences = getSharedPreferences("PREFS", 0);
-                String password = preferences.getString("password", "0");
-                if(password.equals("0")){
-                    Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else{
-                    Intent intent = new Intent(getApplicationContext(), InputPasswordActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-
+                Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                startActivity(intent);
+                finish();
             }
-        }, 2000);
+        }, 1000);
     }
 }

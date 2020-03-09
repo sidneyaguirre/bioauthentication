@@ -13,8 +13,8 @@
     <string name="add_user_btn_text">Add User</string>
     <string name="user_name_placeholder">Full Name</string>
     <string name="create_user_text">Create New User</string>
-    <string name="required_value">Ingresa tu nombre completo</string>
     <string name="user_already_exist">User already exist</string>
+    <string name="new_sample">New Sample</string>
     <array name="users_array">
         <item>Jaime</item>
         <item>John</item>
@@ -24,4 +24,11 @@
         <item>Real</item>
         <item>Impostor</item>
     </array>
+    <string name="required_value">Please digit your name completely</string>
+    <string name="max_length_added">Pin already has the max length</string>
+    <string name="reset_sample">Reset last sample</string>
+    <string name="alert_dialog_title">Set pin length</string>
+    <string name="OK">Ok</string>
+    <string name="invalid_number">Select a valid option</string>
+    <string name="cancel">Cancel</string>
 </resources>

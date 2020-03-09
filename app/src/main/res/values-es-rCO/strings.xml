@@ -12,4 +12,8 @@
     <string name="add_user_btn_text">Añadir usuario</string>
     <string name="user_name_placeholder">Nombre completo</string>
     <string name="create_user_text">Crear nuevo usuario</string>
+    <string name="required_value">Ingresa tu nombre completo</string>
+    <string name="user_already_exist">El usuario ya existe</string>
+    <string name="new_sample">Nueva muestra</string>
+    <string name="max_length_added">El pin ya tiene la longitud maxima</string>
 </resources>

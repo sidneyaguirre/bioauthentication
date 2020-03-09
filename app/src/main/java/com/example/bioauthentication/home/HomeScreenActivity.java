@@ -32,6 +32,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     private AutoCompleteTextView usersDropDown, testTypesDropDown;
     private Button pinBtn, patternBtn ,addUserBtn;
     private FirebaseDatabase db;
+    private  ArrayList<User> mUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         patternBtn = findViewById(R.id.pattern_button);
         addUserBtn = findViewById(R.id.add_user_button);
         db = FirebaseDatabase.getInstance();
-        DatabaseReference users = db.getReference("users");
+        mUsers = new ArrayList<>();
+        final DatabaseReference users = db.getReference("users");
         final ArrayAdapter<String> usersAdapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_popup_item);
         users.addValueEventListener(new ValueEventListener() {
             @Override
@@ -55,6 +57,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                     User us = ds.getValue(User.class);
                     assert us != null;
                     aUsers.add(us.getName());
+                    mUsers.add(us);
                 }
                 usersAdapter.clear();
                 usersAdapter.addAll(aUsers);
@@ -70,8 +73,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         usersDropDown.setAdapter(usersAdapter);
         testTypesDropDown.setAdapter(testTypesAdapter);
 
-        patternBtn.setOnClickListener(utils.setClickListener(getApplicationContext(),InputPasswordActivity.class, usersDropDown, testTypesDropDown));
-        pinBtn.setOnClickListener(utils.setClickListener(getApplicationContext(), LockActivity.class, usersDropDown, testTypesDropDown));
+        patternBtn.setOnClickListener(utils.setClickListener(this,InputPasswordActivity.class, usersDropDown, testTypesDropDown, mUsers));
+        pinBtn.setOnClickListener(utils.setClickListener(this, LockActivity.class, usersDropDown, testTypesDropDown, mUsers));
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

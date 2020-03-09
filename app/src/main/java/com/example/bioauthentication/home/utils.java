@@ -2,14 +2,18 @@ package com.example.bioauthentication.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.bioauthentication.R;
+import com.example.bioauthentication.user.User;
+
+import java.util.ArrayList;
 
 public class utils {
-    public static View.OnClickListener setClickListener(final Context appContext, final Class activityToLaunch, final AutoCompleteTextView usersDropDown, final AutoCompleteTextView testTypesDropDown) {
+    public static View.OnClickListener setClickListener(final Context appContext, final Class activityToLaunch, final AutoCompleteTextView usersDropDown, final AutoCompleteTextView testTypesDropDown, final ArrayList<User> users) {
         return (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -18,8 +22,16 @@ public class utils {
                 if(!usersValue.isEmpty() && !testTypeValue.isEmpty()){
                     Intent intent = new Intent(appContext, activityToLaunch);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("user",usersValue);
-                    intent.putExtra("testType",testTypeValue);
+                    User selectedUser = null;
+                    for(int i=0; i < users.size(); i++){
+                        if (users.get(i).getName().equalsIgnoreCase(usersValue)){
+                            selectedUser = users.get(i);
+                        }
+                    }
+                    Bundle b = new Bundle();
+                    b.putSerializable("user", selectedUser);
+                    b.putString("testType",testTypeValue);
+                    intent.putExtras(b);
                     appContext.startActivity(intent);
                 } else {
                     Toast.makeText(appContext, R.string.empty_values,Toast.LENGTH_LONG).show();
