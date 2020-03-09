@@ -47,8 +47,8 @@
         android:orientation="horizontal"
         android:layout_weight="1">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_weight="1"></LinearLayout>
         <com.example.bioauthentication.pin.dots.IndicatorDots
             android:id="@+id/indicator_dots"
@@ -81,7 +81,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="-1"></LinearLayout>
 
     </LinearLayout>
     <LinearLayout
