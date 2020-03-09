@@ -1,37 +1,25 @@
 package com.example.bioauthentication.pin;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andrognito.pinlockview.IndicatorDots;
-import com.andrognito.pinlockview.PinLockAdapter;
-import com.andrognito.pinlockview.PinLockListener;
-import com.andrognito.pinlockview.PinLockView;
 import com.example.bioauthentication.R;
-import com.example.bioauthentication.home.HomeScreenActivity;
 import com.example.bioauthentication.pin.adapters.LockPinAdapter;
+import com.example.bioauthentication.pin.dots.IndicatorDots;
 import com.example.bioauthentication.pin.entity.LockPin;
-import com.example.bioauthentication.pin.events.OnItemClickListenerLockPin;
 import com.example.bioauthentication.user.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,9 +38,6 @@ public class LockActivity extends AppCompatActivity {
     private float press;
     private float toucharea;
     private String message;
-    private PinLockAdapter mPinLockAdapter;
-
-    private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
     private final static String TAG = LockActivity.class.getSimpleName();
     private final static String TRUE_CODE = "1234";
@@ -80,6 +65,7 @@ public class LockActivity extends AppCompatActivity {
         //mPinLockAdapter = new PinLockAdapter(getContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
+        mIndicatorDots = findViewById(R.id.indicator_dots);
 
 
         Bundle b = getIntent().getExtras();
@@ -134,6 +120,7 @@ public class LockActivity extends AppCompatActivity {
                     public void onNumberClicked(LockPin lockPin) {
                         if(!checkSizeLockPins(pinLength)){
                             lockPins.add(lockPin);
+                            mIndicatorDots.updateDot(lockPins.size());
                             return;
                         }
                         Toast.makeText(getApplicationContext(),R.string.max_length_added,Toast.LENGTH_SHORT).show();
@@ -145,6 +132,7 @@ public class LockActivity extends AppCompatActivity {
                     public void onDeleteClicked() {
                         if(lockPins.size()>0){
                             lockPins.remove(lockPins.size()-1);
+                            mIndicatorDots.updateDot(lockPins.size());
                         }
                     }
         };
@@ -174,6 +162,7 @@ public class LockActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     pinLength = (int)input.getSelectedItem();
+                    mIndicatorDots.setPinLength(pinLength);
                 }catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number,Toast.LENGTH_SHORT).show();
                 }
@@ -187,44 +176,45 @@ public class LockActivity extends AppCompatActivity {
         });
         builder.show();
 
-        /*mPinLockView = findViewById(R.id.pin_lock_view);
-        mIndicatorDots = findViewById(R.id.indicator_dots);
 
-        //attach lock_shape view with dot indicator
-        mPinLockView.attachIndicatorDots(mIndicatorDots);
 
-        //set lock_shape code length
-        mPinLockView.setPinLength(4);
 
-        //set listener for lock_shape code change
-        mPinLockView.setPinLockListener(new PinLockListener() {
-            @Override
-            public void onComplete(String pin) {
-                Log.d(TAG, "lock_shape code: " + pin);
-
-                //User input true code
-                if (pin.equals(TRUE_CODE)) {
-                    Intent intent = new Intent(LockActivity.this, HomeScreenActivity.class);
-                    intent.putExtra("code", pin);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(LockActivity.this, "Failed code, try again!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onEmpty() {
-                //Log.d(TAG, "lock_shape code is empty!");
-            }
-
-            @Override
-            public void onPinChange(int pinLength, String intermediatePin) {
-                Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
-                *//*Mlp a = new Mlp();
-                a.onNumberClicked(Integer.parseInt(intermediatePin));*//*
-            }
-        });*/
+//
+//        //attach lock_shape view with dot indicator
+//        //mPinLockView.attachIndicatorDots(mIndicatorDots);
+//
+//        //set lock_shape code length
+//        mPinLockView.setPinLength(4);
+//
+//        //set listener for lock_shape code change
+//        mPinLockView.setPinLockListener(new PinLockListener() {
+//            @Override
+//            public void onComplete(String pin) {
+//                Log.d(TAG, "lock_shape code: " + pin);
+//
+//                //User input true code
+//                if (pin.equals(TRUE_CODE)) {
+//                    Intent intent = new Intent(LockActivity.this, HomeScreenActivity.class);
+//                    intent.putExtra("code", pin);
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(LockActivity.this, "Failed code, try again!", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onEmpty() {
+//                //Log.d(TAG, "lock_shape code is empty!");
+//            }
+//
+//            @Override
+//            public void onPinChange(int pinLength, String intermediatePin) {
+//                //Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
+//                //*Mlp a = new Mlp();
+//                //a.onNumberClicked(Integer.parseInt(intermediatePin));*//*
+//            }
+//        });
 
 
 
