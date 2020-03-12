@@ -24,7 +24,7 @@
         <item>Real</item>
         <item>Impostor</item>
     </array>
-    <string name="required_value">Please digit your name completely</string>
+    <string name="required_value">Please enter the required values</string>
     <string name="max_length_added">Pin already has the max length</string>
     <string name="reset_sample">Reset last sample</string>
     <string name="alert_dialog_title">Set pin length</string>

@@ -1,6 +1,7 @@
 package com.example.bioauthentication.user;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,13 +31,27 @@ public class NewUserActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
 
         final EditText fullName = findViewById(R.id.new_user);
+        final EditText pin4 = findViewById(R.id.pin_4);
+        final EditText pin6 = findViewById(R.id.pin_6);
+        final EditText pin8 = findViewById(R.id.pin_8);
+
         Button addUser = findViewById(R.id.add_user_button);
         addUser.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  final String userName = fullName.getText().toString();
+//                 final int pin4length = Integer.parseInt(pin4.getText().toString());
+//                 final int pin6length = Integer.parseInt(pin6.getText().toString());
+//                 final int pin8length = Integer.parseInt(pin8.getText().toString());
+                 String pin4length = pin4.getText().toString();
+                 String pin6length = pin6.getText().toString();
+                 String pin8length = pin8.getText().toString();
 
-                 if(userName.isEmpty()) {
+                 Log.d("lenght4", String.valueOf(pin4length));
+                 Log.d("userName", userName);
+
+
+                 if(userName.isEmpty() || pin4length.isEmpty() || pin6length.isEmpty() || pin8length.isEmpty()) {
                      Toast.makeText(getApplicationContext(),R.string.required_value,Toast.LENGTH_SHORT).show();
                      return;
                  }
