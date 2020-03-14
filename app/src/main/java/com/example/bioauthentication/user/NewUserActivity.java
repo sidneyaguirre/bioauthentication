@@ -55,6 +55,11 @@ public class NewUserActivity extends AppCompatActivity {
                      Toast.makeText(getApplicationContext(),R.string.required_value,Toast.LENGTH_SHORT).show();
                      return;
                  }
+
+                 final int pin4len = Integer.parseInt(pin4.getText().toString());
+                 final int pin6len = Integer.parseInt(pin6.getText().toString());
+                 final int pin8len = Integer.parseInt(pin8.getText().toString());
+
                  DatabaseReference usersRef = db.getReference("users");
                  usersRef.runTransaction(new Transaction.Handler() {
                      @NonNull
@@ -72,6 +77,9 @@ public class NewUserActivity extends AppCompatActivity {
                          final User newUser = new User();
                          newUser.setName(userName);
                          newUser.setUid(mayor+1);
+                         newUser.setPin4(pin4len);
+                         newUser.setPin6(pin6len);
+                         newUser.setPin8(pin8len);
                          mutableData.child(newUser.getUid()+"").setValue(newUser);
                          return Transaction.success(mutableData);
                      }

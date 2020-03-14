@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,9 +47,12 @@ public class LockActivity extends AppCompatActivity {
     private List<LockPin> lockPins;
     private int sampleNumber;
     private int pinLength;
+    private int currentPass;
     private User currentUser;
     private String testType;
     private FirebaseDatabase db;
+    TextView counterS;
+    TextView currentPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +62,17 @@ public class LockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
         mIndicatorDots = findViewById(R.id.indicator_dots);
-
+        counterS = (TextView) findViewById(R.id.textCounter);
+        currentPassword = (TextView) findViewById(R.id.textPassword);
 
         Bundle b = getIntent().getExtras();
         if ( b != null){
             currentUser = (User) b.get("user");
             testType = (String) b.get("testType");
         }
+
         db = FirebaseDatabase.getInstance();
         sampleNumber = 1;
-
         Button resetLastSample = findViewById(R.id.reset_sample_btn);
         resetLastSample.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +146,16 @@ public class LockActivity extends AppCompatActivity {
                 try {
                     pinLength = (int)input.getSelectedItem();
                     mIndicatorDots.setPinLength(pinLength);
+                    if(pinLength == 4){
+                        currentPass = currentUser.getPin4();
+                    }
+                    if(pinLength == 6){
+                        currentPass = currentUser.getPin6();
+                    }
+                    if(pinLength == 8){
+                        currentPass = currentUser.getPin8();
+                    }
+                    currentPassword.setText(Integer.toString(currentPass));
                 }catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number,Toast.LENGTH_SHORT).show();
                 }
@@ -238,6 +253,7 @@ public class LockActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
                     if(b && checkSizeLockPins(pinLength)){
+                        counterS.setText(Integer.toString(sampleNumber));
                         sampleNumber += 1;
                         lockPins = new ArrayList<>();
                         mIndicatorDots.updateDot(lockPins.size());
