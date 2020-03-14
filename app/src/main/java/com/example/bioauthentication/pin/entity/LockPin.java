@@ -4,7 +4,9 @@ package com.example.bioauthentication.pin.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Data
@@ -13,9 +15,20 @@ import lombok.ToString;
 @Builder
 @ToString
 public class LockPin {
-    private String digit;
-    private Float x;
-    private Float y;
-    private Long timeEvent;
-    private Long timeDown;
+    @Setter private String digit;
+    @Setter private Float x;
+    @Setter private Float y;
+    @Setter @Getter private Long timeEventDown, timeEventUp;
+    @Setter private Long timeBetweenTouch;
+    @Setter private Long timeLapsePress;
+
+    public LockPin(LockPin clone){
+        this.digit = clone.digit;
+        this.x = clone.x;
+        this.y = clone.y;
+        this.timeEventDown = clone.timeEventDown;
+        this.timeEventUp = clone.timeEventUp;
+        this.timeBetweenTouch = clone.timeBetweenTouch;
+        this.timeLapsePress = clone.timeLapsePress;
+    }
 }
