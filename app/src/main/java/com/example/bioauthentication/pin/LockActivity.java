@@ -31,6 +31,8 @@ import com.google.firebase.database.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.bioauthentication.home.utils.TYPE_UP;
+
 public class LockActivity extends AppCompatActivity {
 
     private float x;
@@ -51,16 +53,6 @@ public class LockActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             lockPins = new ArrayList<LockPin>();
-
-//        class Mlp implements PinLockAdapter.OnNumberClickListener{
-//
-//            @Override
-//            public void onNumberClicked(int keyValue) {
-//                Log.d(TAG, "I WANT THIS" + keyValue);
-//                Log.d(TAG, "onNumberClicked:" + Mlp.class);
-//            }
-//        }
-
 
         //mPinLockAdapter = new PinLockAdapter(getContext());
         super.onCreate(savedInstanceState);
@@ -88,28 +80,7 @@ public class LockActivity extends AppCompatActivity {
         newSampleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference pins = db.getReference("pins");
-                pins.runTransaction(new Transaction.Handler() {
-                    @NonNull
-                    @Override
-                    public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                        lockPins.size();
-                        for (int i=0; i< lockPins.size(); i++) {
-                            LockPin currentPin = lockPins.get(i);
-                            mutableData.child(currentUser.getUid()+"").child(testType).child("pin-length-"+pinLength).child("sample-"+sampleNumber).child(""+(i+1)).setValue(currentPin);
-                        }
-                        return Transaction.success(mutableData);
-                    }
 
-                    @Override
-                    public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
-                        if(b && checkSizeLockPins(pinLength)){
-                            sampleNumber += 1;
-                            lockPins = new ArrayList<>();
-                        }
-                        Log.d(TAG, "onComplete: "+b +" error: "+ databaseError);
-                    }
-                });
             }
         });
 
@@ -117,10 +88,17 @@ public class LockActivity extends AppCompatActivity {
         LockPinAdapter.OnNumberClickListener onNumberClickListener =
                 new LockPinAdapter.OnNumberClickListener() {
                     @Override
-                    public void onNumberClicked(LockPin lockPin) {
+                    public void onNumberClicked(LockPin lockPin, String type) {
                         if(!checkSizeLockPins(pinLength)){
-                            lockPins.add(lockPin);
-                            mIndicatorDots.updateDot(lockPins.size());
+                            if(type.equals(TYPE_UP)) {
+                                lockPins.add(lockPin);
+                                mIndicatorDots.updateDot(lockPins.size());
+                                pushTouchToFirebase();
+                            }else if (lockPins.size() > 0) {
+                                LockPin ant = lockPins.get(lockPins.size()-1);
+                                long timeBetween = lockPin.getTimeEventDown() - ant.getTimeEventUp();
+                                lockPin.setTimeBetweenTouch(timeBetween);
+                            }
                             return;
                         }
                         Toast.makeText(getApplicationContext(),R.string.max_length_added,Toast.LENGTH_SHORT).show();
@@ -240,6 +218,35 @@ public class LockActivity extends AppCompatActivity {
             }
         });*/
 
+    }
+
+    private void pushTouchToFirebase(){
+        if(checkSizeLockPins(lockPins.size())){
+            DatabaseReference pins = db.getReference("pins");
+            pins.runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                    lockPins.size();
+                    for (int i=0; i< lockPins.size(); i++) {
+                        LockPin currentPin = lockPins.get(i);
+                        mutableData.child(currentUser.getUid()+"").child(testType).child("pin-length-"+pinLength).child("sample-"+sampleNumber).child(""+(i+1)).setValue(currentPin);
+                    }
+                    return Transaction.success(mutableData);
+                }
+
+                @Override
+                public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                    if(b && checkSizeLockPins(pinLength)){
+                        sampleNumber += 1;
+                        lockPins = new ArrayList<>();
+                        mIndicatorDots.updateDot(lockPins.size());
+                        Toast.makeText(getApplicationContext(),R.string.new_sample_added,Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d(TAG, "onComplete: "+b +" error: "+ databaseError);
+                }
+            });
+        }
     }
 
     private boolean checkSizeLockPins(int pingSize) {

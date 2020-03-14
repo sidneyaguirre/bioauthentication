@@ -20,6 +20,9 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static com.example.bioauthentication.home.utils.TYPE_DOWN;
+import static com.example.bioauthentication.home.utils.TYPE_UP;
+
 @Data
 @NoArgsConstructor
 public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHolder> {
@@ -69,6 +72,8 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
             btnLockPin.setOnTouchListener(this);
         }
 
+        LockPin newTouch;
+
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             Button b = (Button) view;
@@ -80,13 +85,20 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
                 if(b.getText().toString().equalsIgnoreCase("21")){
                     return true;
                 }
-                onNumberClickListener.onNumberClicked(
-                        LockPin.builder()
-                                .digit(b.getText().toString())
-                                .x(event.getX())
-                                .y(event.getY())
-                                .timeDown(event.getDownTime())
-                                .timeEvent(event.getEventTime()).build());
+                newTouch = new LockPin();
+                newTouch.setDigit(b.getText().toString());
+                newTouch.setX(event.getX());
+                newTouch.setY(event.getY());
+                newTouch.setTimeEventDown(event.getEventTime());
+                onNumberClickListener.onNumberClicked(newTouch, TYPE_DOWN);
+                return true;
+            }
+            if(onNumberClickListener!= null && event.getAction() == MotionEvent.ACTION_UP){
+                assert newTouch != null;
+                long lapseTime = event.getEventTime() - newTouch.getTimeEventDown();
+                newTouch.setTimeLapsePress(lapseTime);
+                newTouch.setTimeEventUp(event.getEventTime());
+                onNumberClickListener.onNumberClicked(newTouch, TYPE_UP);
                 return true;
             }
             return false;
@@ -94,7 +106,7 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
     }
 
     public interface OnNumberClickListener{
-        void onNumberClicked(LockPin lockPin);
+        void onNumberClicked(LockPin lockPin, String type);
     }
 
     public interface OnDeleteClickListener{

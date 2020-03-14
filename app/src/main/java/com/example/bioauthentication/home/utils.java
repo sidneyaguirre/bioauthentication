@@ -3,16 +3,30 @@ package com.example.bioauthentication.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.bioauthentication.R;
+import com.example.bioauthentication.pin.entity.LockPin;
 import com.example.bioauthentication.user.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
 
 public class utils {
+
+    public static String TYPE_DOWN = "down";
+    public static String TYPE_UP = "up";
+
     public static View.OnClickListener setClickListener(final Context appContext, final Class activityToLaunch, final AutoCompleteTextView usersDropDown, final AutoCompleteTextView testTypesDropDown, final ArrayList<User> users) {
         return (new View.OnClickListener() {
             @Override
