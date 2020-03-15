@@ -21,6 +21,8 @@ public class LockPin {
     @Setter @Getter private Long timeEventDown, timeEventUp;
     @Setter private Long timeBetweenTouch;
     @Setter private Long timeLapsePress;
+    @Setter private Float area;
+    @Setter private Float press;
 
     public LockPin(LockPin clone){
         this.digit = clone.digit;
@@ -30,5 +32,7 @@ public class LockPin {
         this.timeEventUp = clone.timeEventUp;
         this.timeBetweenTouch = clone.timeBetweenTouch;
         this.timeLapsePress = clone.timeLapsePress;
+        this.area = clone.area;
+        this.press = clone.press;
     }
 }
