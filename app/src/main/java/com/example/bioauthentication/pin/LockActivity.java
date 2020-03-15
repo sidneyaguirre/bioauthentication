@@ -47,7 +47,7 @@ public class LockActivity extends AppCompatActivity {
     private List<LockPin> lockPins;
     private int sampleNumber;
     private int pinLength;
-    private int currentPass;
+    private String currentPass;
     private User currentUser;
     private String testType;
     private FirebaseDatabase db;
@@ -155,7 +155,7 @@ public class LockActivity extends AppCompatActivity {
                     if (pinLength == 8) {
                         currentPass = currentUser.getPin8();
                     }
-                    currentPassword.setText(Integer.toString(currentPass));
+                    currentPassword.setText(currentPass);
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 }
@@ -235,12 +235,11 @@ public class LockActivity extends AppCompatActivity {
 
     private void pushTouchToFirebase() {
         if (checkSizeLockPins(pinLength)) {
-            String passC = Integer.toString(currentPass);
             String pass = "";
             for (int i = 0; (i) < lockPins.size(); i++) {
                 pass = pass + lockPins.get(i).getDigit();
             }
-            if (pass.equalsIgnoreCase(passC)) {
+            if (pass.equalsIgnoreCase(currentPass)) {
                 DatabaseReference pins = db.getReference("pins");
                 pins.runTransaction(new Transaction.Handler() {
                     @NonNull
