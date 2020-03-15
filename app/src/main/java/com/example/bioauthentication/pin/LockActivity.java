@@ -78,16 +78,17 @@ public class LockActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lockPins = new ArrayList<>();
+                mIndicatorDots.updateDot(lockPins.size());
             }
         });
 
-        Button newSampleBtn = findViewById(R.id.new_sample_btn);
-        newSampleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        Button newSampleBtn = findViewById(R.id.new_sample_btn);
+//        newSampleBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         LockPinAdapter adapter = new LockPinAdapter();
         LockPinAdapter.OnNumberClickListener onNumberClickListener =

@@ -103,15 +103,6 @@
         android:gravity="center_horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/new_sample_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:text="@string/new_sample" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/reset_sample_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
