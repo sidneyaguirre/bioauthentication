@@ -56,6 +56,19 @@ public class NewUserActivity extends AppCompatActivity {
                      return;
                  }
 
+                 if(pin4length.length() != 4){
+                     Toast.makeText(getApplicationContext(),R.string.wrong_len4,Toast.LENGTH_SHORT).show();
+                     return;
+                 }
+                 if(pin6length.length() != 6){
+                     Toast.makeText(getApplicationContext(),R.string.wrong_len6,Toast.LENGTH_SHORT).show();
+                     return;
+                 }
+                 if(pin8length.length() != 8){
+                     Toast.makeText(getApplicationContext(),R.string.wrong_len8,Toast.LENGTH_SHORT).show();
+                     return;
+                 }
+
 //                 final int pin4len = Integer.parseInt(pin4.getText().toString());
 //                 final int pin6len = Integer.parseInt(pin6.getText().toString());
 //                 final int pin8len = Integer.parseInt(pin8.getText().toString());

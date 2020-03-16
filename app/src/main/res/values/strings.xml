@@ -31,6 +31,9 @@
     <string name="OK">Ok</string>
     <string name="invalid_number">Select a valid option</string>
     <string name="wrong_password">Wrong password</string>
+    <string name="wrong_len4">PIN 4 length must be four digits </string>
+    <string name="wrong_len6">PIN 6 length must be six digits </string>
+    <string name="wrong_len8">PIN 8 length must be eight digits </string>
     <string name="cancel">Cancel</string>
     <string name="new_sample_added">A new sample was added</string>
 </resources>

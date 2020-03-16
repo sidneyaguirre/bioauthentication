@@ -49,6 +49,7 @@ public class LockActivity extends AppCompatActivity {
     private int pinLength;
     private String currentPass;
     private User currentUser;
+    private LockPin currentP;
     private String testType;
     private FirebaseDatabase db;
     TextView counterS;
@@ -69,10 +70,11 @@ public class LockActivity extends AppCompatActivity {
         if (b != null) {
             currentUser = (User) b.get("user");
             testType = (String) b.get("testType");
+            currentP = (LockPin) b.get("pin");
         }
 
         db = FirebaseDatabase.getInstance();
-        sampleNumber = 1;
+//        sampleNumber = 1;
         Button resetLastSample = findViewById(R.id.reset_sample_btn);
         resetLastSample.setOnClickListener(new View.OnClickListener() {
             @Override
