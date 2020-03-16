@@ -74,7 +74,7 @@ public class LockActivity extends AppCompatActivity {
         }
 
         db = FirebaseDatabase.getInstance();
-//        sampleNumber = 1;
+        sampleNumber = 1;
         Button resetLastSample = findViewById(R.id.reset_sample_btn);
         resetLastSample.setOnClickListener(new View.OnClickListener() {
             @Override
