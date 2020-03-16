@@ -90,6 +90,8 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
                 newTouch.setX(event.getX());
                 newTouch.setY(event.getY());
                 newTouch.setTimeEventDown(event.getEventTime());
+                newTouch.setPress(event.getPressure(event.getPointerId(0)));
+                newTouch.setArea(((float) Math.pow(10,10))*event.getSize());
                 onNumberClickListener.onNumberClicked(newTouch, TYPE_DOWN);
                 return true;
             }

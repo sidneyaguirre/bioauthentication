@@ -14,16 +14,27 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"></LinearLayout>
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_weight="1"/>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"></LinearLayout>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Password"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0"
+            android:textSize="40sp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,15 +103,6 @@
         android:gravity="center_horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/new_sample_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:text="@string/new_sample" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/reset_sample_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -109,6 +111,23 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/reset_sample" />
+
+        <TextView
+            android:id="@+id/textCounter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0"
+            android:textSize="30sp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="/20"
+            android:textSize="30sp"/>
     </LinearLayout>
 
 </LinearLayout>
