@@ -116,10 +116,8 @@ public class LockActivity extends AppCompatActivity {
                 new LockPinAdapter.OnDeleteClickListener() {
                     @Override
                     public void onDeleteClicked() {
-                        if (lockPins.size() > 0) {
-                            lockPins.remove(lockPins.size() - 1);
-                            mIndicatorDots.updateDot(lockPins.size());
-                        }
+                        lockPins = new ArrayList<>();
+                        mIndicatorDots.updateDot(lockPins.size());
                     }
                 };
         adapter.setOnNumberClickListener(onNumberClickListener);

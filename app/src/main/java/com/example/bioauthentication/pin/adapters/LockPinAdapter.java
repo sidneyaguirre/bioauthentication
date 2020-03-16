@@ -79,8 +79,8 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
             Button b = (Button) view;
             if(onNumberClickListener!=null && event.getAction() == MotionEvent.ACTION_DOWN){
                 if(b.getText().toString().equalsIgnoreCase("20")){
-                    onDeleteClickListener.onDeleteClicked();
-                    return true;
+//                    onDeleteClickListener.onDeleteClicked();
+//                    return true;
                 }
                 if(b.getText().toString().equalsIgnoreCase("21")){
                     return true;
