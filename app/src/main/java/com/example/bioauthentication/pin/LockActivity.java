@@ -36,20 +36,13 @@ import static com.example.bioauthentication.home.utils.TYPE_UP;
 
 public class LockActivity extends AppCompatActivity {
 
-    private float x;
-    private float y;
-    private float press;
-    private float toucharea;
-    private String message;
     private IndicatorDots mIndicatorDots;
     private final static String TAG = LockActivity.class.getSimpleName();
-    private final static String TRUE_CODE = "1234";
     private List<LockPin> lockPins;
     private int sampleNumber;
     private int pinLength;
     private String currentPass;
     private User currentUser;
-    private LockPin currentP;
     private String testType;
     private FirebaseDatabase db;
     TextView counterS;
@@ -59,7 +52,6 @@ public class LockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         lockPins = new ArrayList<LockPin>();
 
-        //mPinLockAdapter = new PinLockAdapter(getContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
         mIndicatorDots = findViewById(R.id.indicator_dots);
@@ -70,7 +62,7 @@ public class LockActivity extends AppCompatActivity {
         if (b != null) {
             currentUser = (User) b.get("user");
             testType = (String) b.get("testType");
-            currentP = (LockPin) b.get("pin");
+            //LockPin currentP = (LockPin) b.get("pin");
         }
 
         db = FirebaseDatabase.getInstance();
@@ -169,72 +161,13 @@ public class LockActivity extends AppCompatActivity {
             }
         });
         builder.show();
-
-
-//
-//        //attach lock_shape view with dot indicator
-//        //mPinLockView.attachIndicatorDots(mIndicatorDots);
-//
-//        //set lock_shape code length
-//        mPinLockView.setPinLength(4);
-//
-//        //set listener for lock_shape code change
-//        mPinLockView.setPinLockListener(new PinLockListener() {
-//            @Override
-//            public void onComplete(String pin) {
-//                Log.d(TAG, "lock_shape code: " + pin);
-//
-//                //User input true code
-//                if (pin.equals(TRUE_CODE)) {
-//                    Intent intent = new Intent(LockActivity.this, HomeScreenActivity.class);
-//                    intent.putExtra("code", pin);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    Toast.makeText(LockActivity.this, "Failed code, try again!", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onEmpty() {
-//                //Log.d(TAG, "lock_shape code is empty!");
-//            }
-//
-//            @Override
-//            public void onPinChange(int pinLength, String intermediatePin) {
-//                //Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
-//                //*Mlp a = new Mlp();
-//                //a.onNumberClicked(Integer.parseInt(intermediatePin));*//*
-//            }
-//        });
-
-
-
-
-       /* mPinLockView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent ev) {
-
-                Log.d(TAG,"keys" + v);
-                Log.d(TAG,"event" + ev);
-                x = ev.getX();
-                y = ev.getY();
-                System.out.println("COORDS: x-> " + x + ", y-> " + y );
-                press = ev.getPressure(ev.getPointerId(0));
-                System.out.println("PRESSURE: " + press);
-                toucharea = ((float) Math.pow(10,10))*ev.getSize();
-                System.out.println("TOUCH AREA: " + toucharea);
-                message = "COORDS: x-> " + x + ", y-> " + y +"\nPressure: " + press + "\nTouch Area: " + toucharea;
-                //message = String.valueOf(press);
-                Log.d("PRESSURE", ev.toString());
-                System.out.println(message);
-                return false;
-            }
-        });*/
-
     }
 
     private void pushTouchToFirebase() {
+        if(sampleNumber > 20) {
+            Toast.makeText(getApplicationContext(), R.string.full_samples, Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (checkSizeLockPins(pinLength)) {
             String pass = "";
             for (int i = 0; (i) < lockPins.size(); i++) {

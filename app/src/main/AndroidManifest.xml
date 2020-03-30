@@ -24,8 +24,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".pattern.CreatePasswordActivity" />
-        <activity android:name=".pattern.InputPasswordActivity" />
+        <activity android:name=".pattern.PatternActivity"/>
         <activity android:name=".pin.LockActivity" />
         <activity android:name=".home.HomeScreenActivity" />
         <activity android:name=".user.NewUserActivity"/>

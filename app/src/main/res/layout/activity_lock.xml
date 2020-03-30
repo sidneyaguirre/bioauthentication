@@ -10,15 +10,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"></LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/textView7"
@@ -57,20 +53,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1" />
         <com.example.bioauthentication.pin.dots.IndicatorDots
             android:id="@+id/indicator_dots"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
             android:layout_marginTop="16dp" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -78,21 +76,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="3">
+        android:layout_weight="10">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_lock_pin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_marginTop="16dp" />
-        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="-1"></LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="9" />
 
     </LinearLayout>
     <LinearLayout
@@ -119,6 +115,7 @@
             android:layout_weight="1"
             android:text="0"
             android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
             android:textAlignment="center"/>
 
         <TextView

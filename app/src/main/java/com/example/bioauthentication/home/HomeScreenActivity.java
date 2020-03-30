@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bioauthentication.R;
-import com.example.bioauthentication.pattern.InputPasswordActivity;
+import com.example.bioauthentication.pattern.PatternActivity;
 import com.example.bioauthentication.pin.LockActivity;
 import com.example.bioauthentication.user.NewUserActivity;
 import com.example.bioauthentication.user.User;
@@ -73,7 +73,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         usersDropDown.setAdapter(usersAdapter);
         testTypesDropDown.setAdapter(testTypesAdapter);
 
-        patternBtn.setOnClickListener(utils.setClickListener(this,InputPasswordActivity.class, usersDropDown, testTypesDropDown, mUsers));
+        patternBtn.setOnClickListener(utils.setClickListener(this, PatternActivity.class, usersDropDown, testTypesDropDown, mUsers));
         pinBtn.setOnClickListener(utils.setClickListener(this, LockActivity.class, usersDropDown, testTypesDropDown, mUsers));
         addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override

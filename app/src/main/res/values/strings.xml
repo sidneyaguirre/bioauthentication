@@ -36,4 +36,8 @@
     <string name="wrong_len8">PIN 8 length must be eight digits </string>
     <string name="cancel">Cancel</string>
     <string name="new_sample_added">A new sample was added</string>
+    <string name="message" translatable="false">pattern</string>
+    <string name="without_add">Sample couldn\'t save</string>
+    <string name="full_samples">Already you have added all samples</string>
+    <string name="sample_text">"Sample: "</string>
 </resources>
