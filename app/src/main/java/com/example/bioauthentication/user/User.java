@@ -19,11 +19,24 @@ public class User implements Serializable {
     private String pin4;
     private String pin6;
     private String pin8;
+    private String pattern4;
+    private String pattern6;
+    private String pattern8;
     private String name;
 
     public int getUid() {
         return uid;
     }
+
+    public String getpattern4() {
+        return pattern4;
+    }
+
+    public String getpattern6() {
+        return pattern6;
+    }
+
+    public String getpattern8() { return pattern8; }
 
     public void setUid(int uid) {
         this.uid = uid;
