@@ -28,15 +28,31 @@ public class User implements Serializable {
         return uid;
     }
 
-    public String getpattern4() {
+
+    public String getPattern4() {
         return pattern4;
     }
 
-    public String getpattern6() {
+    public void setPattern4(String pattern4) {
+        this.pattern4 = pattern4;
+    }
+
+    public String getPattern6() {
         return pattern6;
     }
 
-    public String getpattern8() { return pattern8; }
+    public void setPattern6(String pattern6) {
+        this.pattern6 = pattern6;
+    }
+
+
+    public String getPattern8() {
+        return pattern8;
+    }
+
+    public void setPattern8(String pattern8) {
+        this.pattern8 = pattern8;
+    }
 
     public void setUid(int uid) {
         this.uid = uid;

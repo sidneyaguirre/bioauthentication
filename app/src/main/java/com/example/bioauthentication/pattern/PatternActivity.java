@@ -81,13 +81,13 @@ public class PatternActivity extends AppCompatActivity {
                 try {
                     pinLength = (int) input.getSelectedItem();
                     if (pinLength == 4) {
-                        currentPass = currentUser.getpattern4();
+                        currentPass = currentUser.getPattern4();
                     }
                     if (pinLength == 6) {
-                        currentPass = currentUser.getpattern6();
+                        currentPass = currentUser.getPattern6();
                     }
                     if (pinLength == 8) {
-                        currentPass = currentUser.getpattern8();
+                        currentPass = currentUser.getPattern8();
                     }
                     currentPassword.setText(currentPass);
                 } catch (NumberFormatException e) {
