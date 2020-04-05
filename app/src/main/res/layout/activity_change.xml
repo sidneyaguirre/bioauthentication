@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff222233"
+    tools:context=".pattern.ChangeActivity">
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/message"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#ff006699"
+        app:layout_constraintBottom_toTopOf="@+id/patternView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/enterPattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/confirmPattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <com.example.pattern.utils.PatternView
+            android:id="@+id/lock_viewConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:lineColor="#ffffff"
+            app:lineWidth="4dp"
+            app:nodeOnSrc="@drawable/dot"
+            app:nodeSrc="@drawable/dot" />
+    </FrameLayout>
+
+    <com.example.pattern.utils.PatternView
+        android:id="@+id/patternView"
+        android:layout_width="wrap_content"
+        android:layout_height="411dp"
+        app:layout_constraintBottom_toBottomOf="@+id/enterPattern"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lineColor="#ffffff"
+        app:lineWidth="4dp"
+        app:nodeOnSrc="@drawable/dot"
+        app:nodeSrc="@drawable/dot" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

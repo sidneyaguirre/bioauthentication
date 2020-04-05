@@ -12,4 +12,20 @@
     <string name="add_user_btn_text">Añadir usuario</string>
     <string name="user_name_placeholder">Nombre completo</string>
     <string name="create_user_text">Crear nuevo usuario</string>
+    <string name="required_value">Ingresa tu nombre completo</string>
+    <string name="user_already_exist">El usuario ya existe</string>
+    <string name="new_sample">Nueva muestra</string>
+    <string name="max_length_added">El pin ya tiene la longitud maxima</string>
+    <string name="full_samples">Has añadido todas las muestras</string>
+    <string name="without_add">No se pudo guardar la muestra</string>
+    <string name="new_sample_added">Una nueva muestra ha sido añadida</string>
+    <string name="cancel">Cancelar</string>
+    <string name="OK">Aceptar</string>
+    <string name="invalid_number">Selecciona una opción valida</string>
+    <string name="wrong_password">Contraseña incorrecta</string>
+    <string name="wrong_len4">La longitud del PIN 4 debe ser cuatro digitos</string>
+    <string name="wrong_len6">La longitud del PIN 6 debe ser seis digitos</string>
+    <string name="wrong_len8">La longitud del PIN 8 debe ser ocho digitos</string>
+    <string name="alert_dialog_title">Selecciona una longitud de Pin</string>
+    <string name="reset_sample">Reiniciar ultima muestra</string>
 </resources>

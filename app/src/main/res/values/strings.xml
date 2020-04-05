@@ -13,6 +13,8 @@
     <string name="add_user_btn_text">Add User</string>
     <string name="user_name_placeholder">Full Name</string>
     <string name="create_user_text">Create New User</string>
+    <string name="user_already_exist">User already exist</string>
+    <string name="new_sample">New Sample</string>
     <array name="users_array">
         <item>Jaime</item>
         <item>John</item>
@@ -22,4 +24,20 @@
         <item>Real</item>
         <item>Impostor</item>
     </array>
+    <string name="required_value">Please enter the required values</string>
+    <string name="max_length_added">Pin already has the max length</string>
+    <string name="reset_sample">Reset last sample</string>
+    <string name="alert_dialog_title">Set pin length</string>
+    <string name="OK">Ok</string>
+    <string name="invalid_number">Select a valid option</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="wrong_len4">PIN 4 length must be four digits </string>
+    <string name="wrong_len6">PIN 6 length must be six digits </string>
+    <string name="wrong_len8">PIN 8 length must be eight digits </string>
+    <string name="cancel">Cancel</string>
+    <string name="new_sample_added">A new sample was added</string>
+    <string name="message" translatable="false">pattern</string>
+    <string name="without_add">Sample couldn\'t save</string>
+    <string name="full_samples">Already you have added all samples</string>
+    <string name="sample_text">"Sample: "</string>
 </resources>

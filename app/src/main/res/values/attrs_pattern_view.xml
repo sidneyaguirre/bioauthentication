@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name = "PatternView">
+        <attr name = "nodeSrc" format = "color|reference"></attr>
+        <attr name = "nodeOnSrc" format = "color|reference"></attr>
+        <attr name = "lineColor" format = "color"></attr>
+        <attr name = "lineWidth" format = "dimension"></attr>
+    </declare-styleable>
+</resources>
