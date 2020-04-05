@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class LockActivity extends AppCompatActivity {
     private List<LockPin> lockPins;
     private int sampleNumber;
     private int pinLength;
+    private long countSamples;
     private String currentPass;
     private User currentUser;
     private String testType;
@@ -66,7 +68,6 @@ public class LockActivity extends AppCompatActivity {
         }
 
         db = FirebaseDatabase.getInstance();
-        sampleNumber = 1;
         Button resetLastSample = findViewById(R.id.reset_sample_btn);
         resetLastSample.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +150,25 @@ public class LockActivity extends AppCompatActivity {
                         currentPass = currentUser.getPin8();
                     }
                     currentPassword.setText(currentPass);
+
+                    String uid = Integer.toString(currentUser.getUid());
+                    String lenPin = "pin-length-";
+                    String numb = Integer.toString((pinLength));
+                    lenPin = lenPin + numb;
+                    DatabaseReference patternRef = db.getReference().child("pins").child(uid).child(testType).child(lenPin);
+
+                    ValueEventListener valueEventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            countSamples = dataSnapshot.getChildrenCount();
+                            Log.d("TAG", "count= " + countSamples);
+                            sampleNumber = (int)countSamples;
+                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            sampleNumber+=1;
+                        }@Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    };
+                    patternRef.addListenerForSingleValueEvent(valueEventListener);
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 }
@@ -190,7 +210,7 @@ public class LockActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
                         if (b && checkSizeLockPins(pinLength)) {
-                            counterS.setText(Integer.toString(sampleNumber));
+                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
                             sampleNumber += 1;
                             lockPins = new ArrayList<>();
                             mIndicatorDots.updateDot(lockPins.size());

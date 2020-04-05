@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -43,8 +44,10 @@ public class PatternActivity extends AppCompatActivity {
     private int pinLength;
     private String testType;
     private String currentPass;
+    private String path;
     private ProgressBar loading;
     private int sampleNumber;
+    private long countSamples;
     private FirebaseDatabase db;
     TextView counterS;
     TextView currentPassword;
@@ -90,6 +93,27 @@ public class PatternActivity extends AppCompatActivity {
                         currentPass = currentUser.getPattern8();
                     }
                     currentPassword.setText(currentPass);
+
+                    String uid = Integer.toString(currentUser.getUid());
+                    String lenPattern = "pattern-length-";
+                    String numb = Integer.toString((pinLength));
+                    lenPattern = lenPattern + numb;
+                    Log.d("TAG", "len= " + lenPattern);
+                    DatabaseReference patternRef = db.getReference().child("patterns").child(uid).child(testType).child(lenPattern);
+
+                    ValueEventListener valueEventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            countSamples = dataSnapshot.getChildrenCount();
+                            Log.d("TAG", "count= " + countSamples);
+                            sampleNumber = (int)countSamples;
+                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            sampleNumber+=1;
+                        }@Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    };
+                    patternRef.addListenerForSingleValueEvent(valueEventListener);
+
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 }
@@ -104,7 +128,7 @@ public class PatternActivity extends AppCompatActivity {
         builder.show();
 
         db = FirebaseDatabase.getInstance();
-        sampleNumber = 1;
+
 
         patternView = (PatternView)findViewById(R.id.patternView);
         patternView.setCallBack(new PatternView.CallBack() {
