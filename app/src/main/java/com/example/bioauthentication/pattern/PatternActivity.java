@@ -106,6 +106,9 @@ public class PatternActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             countSamples = dataSnapshot.getChildrenCount();
                             Log.d("TAG", "count= " + countSamples);
+                            sampleNumber = (int)countSamples;
+                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            sampleNumber+=1;
                         }@Override
                         public void onCancelled(DatabaseError databaseError) {}
                     };
@@ -125,24 +128,7 @@ public class PatternActivity extends AppCompatActivity {
         builder.show();
 
         db = FirebaseDatabase.getInstance();
-//        sampleNumber = 1;
 
-//        String uid = Integer.toString(currentUser.getUid());
-//        String lenPattern = "pattern-length-";
-//        String numb = Integer.toString((pinLength));
-//        lenPattern = lenPattern + numb;
-//        Log.d("TAG", "len= " + lenPattern);
-//        DatabaseReference patternRef = db.getReference().child("patterns").child(uid).child(testType).child(lenPattern);
-//
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                long count = dataSnapshot.getChildrenCount();
-//                Log.d("TAG", "count= " + count);
-//            }@Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        };
-//        patternRef.addListenerForSingleValueEvent(valueEventListener);
 
         patternView = (PatternView)findViewById(R.id.patternView);
         patternView.setCallBack(new PatternView.CallBack() {
