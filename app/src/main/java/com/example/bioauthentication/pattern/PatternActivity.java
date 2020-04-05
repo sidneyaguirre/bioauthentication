@@ -47,6 +47,7 @@ public class PatternActivity extends AppCompatActivity {
     private int sampleNumber;
     private FirebaseDatabase db;
     TextView counterS;
+    TextView currentPassword;
     SharedPreferences prefs;
 
     @Override
@@ -57,12 +58,14 @@ public class PatternActivity extends AppCompatActivity {
         loading = findViewById(R.id.loading_data);
         loading.setVisibility(View.INVISIBLE);
         counterS = findViewById(R.id.textCounter);
+        currentPassword = (TextView) findViewById(R.id.textPassword2);
+
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
             currentUser = (User) b.get("user");
             testType = (String) b.get("testType");
-            LockPin currentP = (LockPin) b.get("pin");
+//            LockPin currentP = (LockPin) b.get("pin");
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -78,14 +81,15 @@ public class PatternActivity extends AppCompatActivity {
                 try {
                     pinLength = (int) input.getSelectedItem();
                     if (pinLength == 4) {
-                        currentPass = currentUser.getPin4();
+                        currentPass = currentUser.getPattern4();
                     }
                     if (pinLength == 6) {
-                        currentPass = currentUser.getPin6();
+                        currentPass = currentUser.getPattern6();
                     }
                     if (pinLength == 8) {
-                        currentPass = currentUser.getPin8();
+                        currentPass = currentUser.getPattern8();
                     }
+                    currentPassword.setText(currentPass);
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 }
