@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -105,6 +106,18 @@ public class PatternActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
         sampleNumber = 1;
+
+        DatabaseReference patternRef = db.getReference().child("patterns");
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long count = dataSnapshot.getChildrenCount();
+                Log.d("TAG", "count= " + count);
+            }@Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        patternRef.addListenerForSingleValueEvent(valueEventListener);
 
         patternView = (PatternView)findViewById(R.id.patternView);
         patternView.setCallBack(new PatternView.CallBack() {

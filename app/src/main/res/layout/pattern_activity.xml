@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff222233"
+    android:background="#000000"
     tools:context=".pattern.PatternActivity">
 
     <TextView
@@ -53,9 +53,9 @@
 
     <ProgressBar
         android:id="@+id/loading_data"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@color/colorPrimary"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="#80000000"
         android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/patternView"
