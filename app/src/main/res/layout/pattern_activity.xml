@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="0"
+        android:textColor="@color/white"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/patternView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +31,7 @@
         android:layout_marginTop="48dp"
         android:layout_weight="1"
         android:text="Password"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/patternView"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +82,7 @@
             android:textAlignment="textEnd"
             android:text="@string/sample_text"
             android:textSize="30sp"
+            android:textColor="@color/white"
             android:layout_gravity="end" />
 
         <TextView
@@ -89,6 +92,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:text="0/20"
+            android:textColor="@color/white"
             android:gravity="start"
             android:textAlignment="textStart"
             android:textSize="30sp"
