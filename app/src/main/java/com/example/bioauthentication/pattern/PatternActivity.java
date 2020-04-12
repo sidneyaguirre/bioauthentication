@@ -59,7 +59,7 @@ public class PatternActivity extends AppCompatActivity {
         setContentView(R.layout.pattern_activity);
         prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         loading = findViewById(R.id.loading_data);
-        loading.setVisibility(View.INVISIBLE);
+        loading.setVisibility(View.VISIBLE);
         counterS = findViewById(R.id.textCounter);
         currentPassword = (TextView) findViewById(R.id.textPassword2);
 
@@ -108,6 +108,7 @@ public class PatternActivity extends AppCompatActivity {
                             Log.d("TAG", "count= " + countSamples);
                             sampleNumber = (int)countSamples;
                             counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            callBack(false);
                             sampleNumber+=1;
                         }@Override
                         public void onCancelled(DatabaseError databaseError) {}

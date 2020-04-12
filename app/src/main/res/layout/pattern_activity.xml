@@ -30,7 +30,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="48dp"
         android:layout_weight="1"
-        android:text="Password"
+        android:text="Your Pattern"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/patternView"
