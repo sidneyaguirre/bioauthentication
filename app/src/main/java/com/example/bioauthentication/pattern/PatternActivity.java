@@ -3,6 +3,7 @@ package com.example.bioauthentication.pattern;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +34,9 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PatternActivity extends AppCompatActivity {
 
@@ -192,21 +195,33 @@ public class PatternActivity extends AppCompatActivity {
         }
         if (password.equalsIgnoreCase(currentPass)) {
             DatabaseReference pins = db.getReference("patterns");
+            AsyncTask();
             pins.runTransaction(new Transaction.Handler() {
                 @NonNull
                 @Override
                 public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    Date resultdate = new Date(System.currentTimeMillis());
+                    Log.d("FirebaseTx: ", sdf.format(resultdate) );
                     nodes.size();
                     callBack(true);
+                    MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
                     for (int i = 0; i < nodes.size(); i++) {
                         LockPattern currentPin = nodes.get(i);
-                        mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber).child("" + (i + 1)).setValue(currentPin);
+                        root.child("" + (i + 1)).setValue(currentPin);
+                        Date resultMutable = new Date(System.currentTimeMillis());
+                        Log.d("FirebaseTxMutable: ", sdf.format(resultMutable) );
                     }
+                    resultdate = new Date(System.currentTimeMillis());
+                    Log.d("FirebaseTxEnd: ", sdf.format(resultdate) );
                     return Transaction.success(mutableData);
                 }
 
                 @Override
                 public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    Date resultdate = new Date(System.currentTimeMillis());
+                    Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate) );
                     if (b) {
                         counterS.setText(String.valueOf(sampleNumber).concat("/20"));
                         sampleNumber += 1;
