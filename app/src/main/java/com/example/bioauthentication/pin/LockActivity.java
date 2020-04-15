@@ -166,7 +166,6 @@ public class LockActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             countSamples = dataSnapshot.getChildrenCount();
-                            Log.d("TAG", "count= " + countSamples);
                             sampleNumber = (int)countSamples;
                             counterS.setText(String.valueOf(sampleNumber).concat("/20"));
                             sampleNumber+=1;
@@ -238,7 +237,6 @@ public class LockActivity extends AppCompatActivity {
                             mIndicatorDots.updateDot(lockPins.size());
                             Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
                         }
-                        Log.d(TAG, "onComplete: " + b + " error: " + databaseError);
                         callBack(false);
                     }
                 });

@@ -47,8 +47,6 @@ public class NewUserActivity extends AppCompatActivity {
                  final String pin6length = pin6.getText().toString();
                  final String pin8length = pin8.getText().toString();
 
-                 Log.d("lenght4", String.valueOf(pin4length));
-                 Log.d("userName", userName);
 
 
                  if(userName.isEmpty() || pin4length.isEmpty() || pin6length.isEmpty() || pin8length.isEmpty()) {

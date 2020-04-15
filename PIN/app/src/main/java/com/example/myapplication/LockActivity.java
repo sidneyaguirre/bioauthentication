@@ -37,7 +37,6 @@ public class LockActivity extends AppCompatActivity {
         mPinLockView.setPinLockListener(new PinLockListener() {
             @Override
             public void onComplete(String pin) {
-                Log.d(TAG, "lock_shape code: " + pin);
 
                 //User input true code
                 if (pin.equals(TRUE_CODE)) {
@@ -52,12 +51,10 @@ public class LockActivity extends AppCompatActivity {
 
             @Override
             public void onEmpty() {
-                Log.d(TAG, "lock_shape code is empty!");
             }
 
             @Override
             public void onPinChange(int pinLength, String intermediatePin) {
-                Log.d(TAG, "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
             }
         });
 

@@ -98,14 +98,12 @@ public class PatternActivity extends AppCompatActivity {
                     String lenPattern = "pattern-length-";
                     String numb = Integer.toString((pinLength));
                     lenPattern = lenPattern + numb;
-                    Log.d("TAG", "len= " + lenPattern);
                     DatabaseReference patternRef = db.getReference().child("patterns").child(uid).child(testType).child(lenPattern);
 
                     ValueEventListener valueEventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             countSamples = dataSnapshot.getChildrenCount();
-                            Log.d("TAG", "count= " + countSamples);
                             sampleNumber = (int)countSamples;
                             counterS.setText(String.valueOf(sampleNumber).concat("/20"));
                             callBack(false);
@@ -137,7 +135,6 @@ public class PatternActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long count = dataSnapshot.getChildrenCount();
-                Log.d("TAG", "count= " + count);
             }@Override
             public void onCancelled(DatabaseError databaseError) {}
         };
