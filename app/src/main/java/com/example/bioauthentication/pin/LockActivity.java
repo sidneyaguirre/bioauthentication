@@ -222,9 +222,10 @@ public class LockActivity extends AppCompatActivity {
                     public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                         lockPins.size();
                         callBack(true);
+                        MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pin-length-" + pinLength).child("sample-" + sampleNumber);
                         for (int i = 0; i < lockPins.size(); i++) {
                             LockPin currentPin = lockPins.get(i);
-                            mutableData.child(currentUser.getUid() + "").child(testType).child("pin-length-" + pinLength).child("sample-" + sampleNumber).child("" + (i + 1)).setValue(currentPin);
+                            root.child("" + (i + 1)).setValue(currentPin);
                         }
                         return Transaction.success(mutableData);
                     }

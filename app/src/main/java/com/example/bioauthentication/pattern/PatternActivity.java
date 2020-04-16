@@ -1,7 +1,6 @@
 package com.example.bioauthentication.pattern;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,10 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 //import android.support.v7.app.ActionBarActivity;
 import com.example.bioauthentication.R;
-import com.example.bioauthentication.home.HomeScreenActivity;
 import com.example.bioauthentication.pattern.entity.LockPattern;
 import com.example.bioauthentication.pattern.utils.PatternView;
-import com.example.bioauthentication.pin.entity.LockPin;
 import com.example.bioauthentication.user.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -109,12 +106,15 @@ public class PatternActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             countSamples = dataSnapshot.getChildrenCount();
                             Log.d("TAG", "count= " + countSamples);
-                            sampleNumber = (int)countSamples;
+                            sampleNumber = (int) countSamples;
                             counterS.setText(String.valueOf(sampleNumber).concat("/20"));
                             callBack(false);
-                            sampleNumber+=1;
-                        }@Override
-                        public void onCancelled(DatabaseError databaseError) {}
+                            sampleNumber += 1;
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     };
                     patternRef.addListenerForSingleValueEvent(valueEventListener);
 
@@ -141,12 +141,15 @@ public class PatternActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long count = dataSnapshot.getChildrenCount();
                 Log.d("TAG", "count= " + count);
-            }@Override
-            public void onCancelled(DatabaseError databaseError) {}
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
         };
         patternRef.addListenerForSingleValueEvent(valueEventListener);
 
-        patternView = (PatternView)findViewById(R.id.patternView);
+        patternView = (PatternView) findViewById(R.id.patternView);
         patternView.setCallBack(new PatternView.CallBack() {
             @Override
             public void onFinish(String password, ArrayList<LockPattern> nodes) {
@@ -172,15 +175,15 @@ public class PatternActivity extends AppCompatActivity {
 
     }
 
-    private void callBack(final boolean show){
+    private void callBack(final boolean show) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (show){
+                if (show) {
                     loading.setVisibility(View.VISIBLE);
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }else {
+                } else {
                     loading.setVisibility(View.INVISIBLE);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
@@ -188,55 +191,118 @@ public class PatternActivity extends AppCompatActivity {
         });
     }
 
-    private void pushTouchToFirebase(final String password, final ArrayList<LockPattern> nodes ) {
-        if(sampleNumber > 20) {
+    private void pushTouchToFirebase(final String password, final ArrayList<LockPattern> nodes) {
+        if (sampleNumber > 20) {
             Toast.makeText(getApplicationContext(), R.string.full_samples, Toast.LENGTH_SHORT).show();
             return;
         }
         if (password.equalsIgnoreCase(currentPass)) {
-            DatabaseReference pins = db.getReference("patterns");
-            AsyncTask();
-            pins.runTransaction(new Transaction.Handler() {
-                @NonNull
-                @Override
-                public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                    Date resultdate = new Date(System.currentTimeMillis());
-                    Log.d("FirebaseTx: ", sdf.format(resultdate) );
-                    nodes.size();
-                    callBack(true);
-                    MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
-                    for (int i = 0; i < nodes.size(); i++) {
-                        LockPattern currentPin = nodes.get(i);
-                        root.child("" + (i + 1)).setValue(currentPin);
-                        Date resultMutable = new Date(System.currentTimeMillis());
-                        Log.d("FirebaseTxMutable: ", sdf.format(resultMutable) );
-                    }
-                    resultdate = new Date(System.currentTimeMillis());
-                    Log.d("FirebaseTxEnd: ", sdf.format(resultdate) );
-                    return Transaction.success(mutableData);
-                }
-
-                @Override
-                public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                    Date resultdate = new Date(System.currentTimeMillis());
-                    Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate) );
-                    if (b) {
-                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
-                        sampleNumber += 1;
-                        Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), R.string.without_add, Toast.LENGTH_SHORT).show();
-                    }
-                    callBack(false);
-                }
-            });
-        }
-        else{
+            AsyncTaskExample asyncTask = new AsyncTaskExample();
+            asyncTask.execute(nodes);
+//            DatabaseReference pins = db.getReference("patterns");
+////            AsyncTask();
+//            pins.runTransaction(new Transaction.Handler() {
+//                @NonNull
+//                @Override
+//                public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//                    Date resultdate = new Date(System.currentTimeMillis());
+//                    Log.d("FirebaseTx: ", sdf.format(resultdate) );
+//                    nodes.size();
+//                    callBack(true);
+//                    MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
+//                    for (int i = 0; i < nodes.size(); i++) {
+//                        LockPattern currentPin = nodes.get(i);
+//                        root.child("" + (i + 1)).setValue(currentPin);
+//                        Date resultMutable = new Date(System.currentTimeMillis());
+//                        Log.d("FirebaseTxMutable: ", sdf.format(resultMutable) );
+//                    }
+//                    resultdate = new Date(System.currentTimeMillis());
+//                    Log.d("FirebaseTxEnd: ", sdf.format(resultdate) );
+//                    return Transaction.success(mutableData);
+//                }
+//
+//                @Override
+//                public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//                    Date resultdate = new Date(System.currentTimeMillis());
+//                    Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate) );
+//                    if (b) {
+//                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+//                        sampleNumber += 1;
+//                        Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
+//                    }
+//                    else{
+//                        Toast.makeText(getApplicationContext(), R.string.without_add, Toast.LENGTH_SHORT).show();
+//                    }
+//                    callBack(false);
+//                }
+//            });
+        } else {
             Toast.makeText(getApplicationContext(), R.string.wrong_password, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private class AsyncTaskExample extends AsyncTask<ArrayList<LockPattern>,Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(ArrayList<LockPattern>... arrayLists) {
+            try {
+                final ArrayList<LockPattern> nodes = arrayLists[0];
+                DatabaseReference pins = db.getReference("patterns");
+                pins.runTransaction(new Transaction.Handler() {
+                    @NonNull
+                    @Override
+                    public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                        Date resultdate = new Date(System.currentTimeMillis());
+                        Log.d("FirebaseTx: ", sdf.format(resultdate));
+                        nodes.size();
+                        callBack(true);
+                        MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
+                        for (int i = 0; i < nodes.size(); i++) {
+                            LockPattern currentPin = nodes.get(i);
+                            root.child("" + (i + 1)).setValue(currentPin);
+                            Date resultMutable = new Date(System.currentTimeMillis());
+                            Log.d("FirebaseTxMutable: ", sdf.format(resultMutable));
+                        }
+                        resultdate = new Date(System.currentTimeMillis());
+                        Log.d("FirebaseTxEnd: ", sdf.format(resultdate));
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                        Date resultdate = new Date(System.currentTimeMillis());
+                        Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate));
+                        if (b) {
+                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            sampleNumber += 1;
+                            Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), R.string.without_add, Toast.LENGTH_SHORT).show();
+                        }
+                        callBack(false);
+                    }
+                });
+            } catch (Error e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+//        @Override
+//        protected void onPostExecute(Bitmap bitmap) {
+//            super.onPostExecute(bitmap);
+//            if(imageView!=null) {
+//                p.hide();
+//                imageView.setImageBitmap(bitmap);
+//            }else {
+//                p.show();
+//            }
+//        }
     }
 
 /*
