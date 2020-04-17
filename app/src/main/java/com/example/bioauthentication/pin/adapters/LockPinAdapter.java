@@ -47,6 +47,7 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
         if(btn.getText().toString().equalsIgnoreCase("20")){
             btn.setTextSize(0);
             btn.setBackgroundResource(R.drawable.ic_backspace);
+            btn.setVisibility(View.INVISIBLE);
         }else if (btn.getText().toString().equalsIgnoreCase("21")) {
             btn.setTextSize(0);
             btn.setBackground(new ColorDrawable(Color.TRANSPARENT));
@@ -79,8 +80,8 @@ public class LockPinAdapter extends RecyclerView.Adapter<LockPinAdapter.ViewHold
             Button b = (Button) view;
             if(onNumberClickListener!=null && event.getAction() == MotionEvent.ACTION_DOWN){
                 if(b.getText().toString().equalsIgnoreCase("20")){
-//                    onDeleteClickListener.onDeleteClicked();
-//                    return true;
+                    onDeleteClickListener.onDeleteClicked();
+                    return true;
                 }
                 if(b.getText().toString().equalsIgnoreCase("21")){
                     return true;

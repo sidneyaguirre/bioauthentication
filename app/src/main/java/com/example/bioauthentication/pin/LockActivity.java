@@ -1,6 +1,7 @@
 package com.example.bioauthentication.pin;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -215,33 +216,8 @@ public class LockActivity extends AppCompatActivity {
                 pass = pass + lockPins.get(i).getDigit();
             }
             if (pass.equalsIgnoreCase(currentPass)) {
-                DatabaseReference pins = db.getReference("pins");
-                pins.runTransaction(new Transaction.Handler() {
-                    @NonNull
-                    @Override
-                    public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                        lockPins.size();
-                        callBack(true);
-                        for (int i = 0; i < lockPins.size(); i++) {
-                            LockPin currentPin = lockPins.get(i);
-                            mutableData.child(currentUser.getUid() + "").child(testType).child("pin-length-" + pinLength).child("sample-" + sampleNumber).child("" + (i + 1)).setValue(currentPin);
-                        }
-                        return Transaction.success(mutableData);
-                    }
-
-                    @Override
-                    public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
-                        if (b && checkSizeLockPins(pinLength)) {
-                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
-                            sampleNumber += 1;
-                            lockPins = new ArrayList<>();
-                            mIndicatorDots.updateDot(lockPins.size());
-                            Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
-                        }
-                        Log.d(TAG, "onComplete: " + b + " error: " + databaseError);
-                        callBack(false);
-                    }
-                });
+                AsyncTaskExample asyncTask = new AsyncTaskExample();
+                asyncTask.execute();
             }
             else{
                 Toast.makeText(getApplicationContext(), R.string.wrong_password, Toast.LENGTH_SHORT).show();
@@ -259,5 +235,40 @@ public class LockActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private  class AsyncTaskExample extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            DatabaseReference pins = db.getReference("pins").child(currentUser.getUid() + "").child(testType).child("pin-length-" + pinLength).child("sample-" + sampleNumber);
+            pins.runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                    lockPins.size();
+                    callBack(true);
+                    for (int i = 0; i < lockPins.size(); i++) {
+                        LockPin currentPin = lockPins.get(i);
+                        mutableData.child("" + (i + 1)).setValue(currentPin);
+                    }
+                    return Transaction.success(mutableData);
+                }
+
+                @Override
+                public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                    if (b && checkSizeLockPins(pinLength)) {
+                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                        sampleNumber += 1;
+                        lockPins = new ArrayList<>();
+                        mIndicatorDots.updateDot(lockPins.size());
+                        Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
+                    }
+                    Log.d(TAG, "onComplete: " + b + " error: " + databaseError);
+                    callBack(false);
+                }
+            });
+            return null;
+        }
     }
 }
