@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:933776085159:android:113d24274a61bb1fd8cb82",
+        "android_client_info": {
+          "package_name": "app.release.bioauthentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933776085159-d7macaft4qva2m3vnhui38oso24cb4c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT1qvnrsYCYSTptC066SCZt3iZ5Y2NxD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933776085159-d7macaft4qva2m3vnhui38oso24cb4c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:933776085159:android:fc7e575fd519650dd8cb82",
         "android_client_info": {
           "package_name": "com.example.bioauthentication"
