@@ -154,22 +154,6 @@ public class PatternActivity extends AppCompatActivity {
             @Override
             public void onFinish(String password, ArrayList<LockPattern> nodes) {
                 pushTouchToFirebase(password, nodes);
-                /*
-                PATTERN_KEY = prefs.getString("Pattern", "invalid");
-
-                if(PATTERN_KEY.equals("invalid")) {
-                    Toast.makeText(PatternActivity.this, "Options --> Create new Pattern", Toast.LENGTH_LONG).show();
-                }else {
-                    if(password.equals(PATTERN_KEY)) {
-                        Intent intent = new Intent(PatternActivity.this, HomeScreenActivity.class);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(PatternActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(PatternActivity.this, "Pattern incorrect!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                 */
             }
         });
 
@@ -254,37 +238,6 @@ public class PatternActivity extends AppCompatActivity {
             return null;
         }
 
-//        @Override
-//        protected void onPostExecute(Bitmap bitmap) {
-//            super.onPostExecute(bitmap);
-//            if(imageView!=null) {
-//                p.hide();
-//                imageView.setImageBitmap(bitmap);
-//            }else {
-//                p.show();
-//            }
-//        }
     }
 
-/*
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.create_new_pattern:
-                Intent intent = new Intent(MainActivity.this, ChangeActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
 }
