@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.example.bioauthentication.pattern.utils.PatternView
+    <app.release.bioauthentication.pattern.utils.PatternView
         android:id="@+id/patternView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

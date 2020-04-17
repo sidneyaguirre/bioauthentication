@@ -1,4 +1,4 @@
-package com.example.biomeasures;
+package app.release.biomeasures;
 
 import androidx.appcompat.app.AppCompatActivity;
 

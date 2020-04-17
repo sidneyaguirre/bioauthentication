@@ -36,7 +36,7 @@
         android:layout_gravity="center"
         android:visibility="gone">
 
-        <com.example.pattern.utils.PatternView
+        <app.release.pattern.utils.PatternView
             android:id="@+id/lock_viewConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             app:nodeSrc="@drawable/dot" />
     </FrameLayout>
 
-    <com.example.pattern.utils.PatternView
+    <app.release.pattern.utils.PatternView
         android:id="@+id/patternView"
         android:layout_width="wrap_content"
         android:layout_height="411dp"

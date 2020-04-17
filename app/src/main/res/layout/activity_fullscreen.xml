@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="12dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.bioauthentication.home.HomeScreenActivity">
+    tools:context="app.release.bioauthentication.home.HomeScreenActivity">
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

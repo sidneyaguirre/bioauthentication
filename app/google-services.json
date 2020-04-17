@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:933776085159:android:fc7e575fd519650dd8cb82",
         "android_client_info": {
-          "package_name": "com.example.bioauthentication"
+          "package_name": "app.release.bioauthentication"
         }
       },
       "oauth_client": [
