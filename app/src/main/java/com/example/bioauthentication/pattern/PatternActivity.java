@@ -199,45 +199,7 @@ public class PatternActivity extends AppCompatActivity {
         if (password.equalsIgnoreCase(currentPass)) {
             AsyncTaskExample asyncTask = new AsyncTaskExample();
             asyncTask.execute(nodes);
-//            DatabaseReference pins = db.getReference("patterns");
-////            AsyncTask();
-//            pins.runTransaction(new Transaction.Handler() {
-//                @NonNull
-//                @Override
-//                public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-//                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-//                    Date resultdate = new Date(System.currentTimeMillis());
-//                    Log.d("FirebaseTx: ", sdf.format(resultdate) );
-//                    nodes.size();
-//                    callBack(true);
-//                    MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
-//                    for (int i = 0; i < nodes.size(); i++) {
-//                        LockPattern currentPin = nodes.get(i);
-//                        root.child("" + (i + 1)).setValue(currentPin);
-//                        Date resultMutable = new Date(System.currentTimeMillis());
-//                        Log.d("FirebaseTxMutable: ", sdf.format(resultMutable) );
-//                    }
-//                    resultdate = new Date(System.currentTimeMillis());
-//                    Log.d("FirebaseTxEnd: ", sdf.format(resultdate) );
-//                    return Transaction.success(mutableData);
-//                }
-//
-//                @Override
-//                public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
-//                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-//                    Date resultdate = new Date(System.currentTimeMillis());
-//                    Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate) );
-//                    if (b) {
-//                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
-//                        sampleNumber += 1;
-//                        Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
-//                    }
-//                    else{
-//                        Toast.makeText(getApplicationContext(), R.string.without_add, Toast.LENGTH_SHORT).show();
-//                    }
-//                    callBack(false);
-//                }
-//            });
+
         } else {
             Toast.makeText(getApplicationContext(), R.string.wrong_password, Toast.LENGTH_SHORT).show();
         }
@@ -250,8 +212,8 @@ public class PatternActivity extends AppCompatActivity {
         protected Void doInBackground(ArrayList<LockPattern>... arrayLists) {
             try {
                 final ArrayList<LockPattern> nodes = arrayLists[0];
-                DatabaseReference pins = db.getReference("patterns");
-                pins.runTransaction(new Transaction.Handler() {
+                DatabaseReference pattern = db.getReference("patterns").child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
+                pattern.runTransaction(new Transaction.Handler() {
                     @NonNull
                     @Override
                     public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
@@ -260,10 +222,9 @@ public class PatternActivity extends AppCompatActivity {
                         Log.d("FirebaseTx: ", sdf.format(resultdate));
                         nodes.size();
                         callBack(true);
-                        MutableData root = mutableData.child(currentUser.getUid() + "").child(testType).child("pattern-length-" + pinLength).child("sample-" + sampleNumber);
                         for (int i = 0; i < nodes.size(); i++) {
                             LockPattern currentPin = nodes.get(i);
-                            root.child("" + (i + 1)).setValue(currentPin);
+                            mutableData.child("" + (i + 1)).setValue(currentPin);
                             Date resultMutable = new Date(System.currentTimeMillis());
                             Log.d("FirebaseTxMutable: ", sdf.format(resultMutable));
                         }
