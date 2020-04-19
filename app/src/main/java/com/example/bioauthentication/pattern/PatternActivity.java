@@ -154,7 +154,7 @@ public class PatternActivity extends AppCompatActivity {
     }
 
     private void pushTouchToFirebase(final String password, final ArrayList<LockPattern> nodes) {
-        if (sampleNumber > 20) {
+        if (sampleNumber > 25) {
             Toast.makeText(getApplicationContext(), R.string.full_samples, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -201,7 +201,7 @@ public class PatternActivity extends AppCompatActivity {
                         Date resultdate = new Date(System.currentTimeMillis());
                         Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate));
                         if (b) {
-                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            counterS.setText(String.valueOf(sampleNumber).concat("/25"));
                             sampleNumber += 1;
                             Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
                         } else {
@@ -237,7 +237,7 @@ public class PatternActivity extends AppCompatActivity {
                         countSamples = dataSnapshot.getChildrenCount();
                         Log.d("TAG", "count= " + countSamples);
                         sampleNumber = (int) countSamples;
-                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                        counterS.setText(String.valueOf(sampleNumber).concat("/25"));
                         callBack(false);
                         sampleNumber += 1;
                     }

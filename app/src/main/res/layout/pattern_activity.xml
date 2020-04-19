@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:text="0/20"
+            android:text="0/25"
             android:textColor="@color/white"
             android:gravity="start"
             android:textAlignment="textStart"

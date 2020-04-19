@@ -169,7 +169,7 @@ public class LockActivity extends AppCompatActivity {
                             countSamples = dataSnapshot.getChildrenCount();
                             Log.d("TAG", "count= " + countSamples);
                             sampleNumber = (int)countSamples;
-                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            counterS.setText(String.valueOf(sampleNumber).concat("/25"));
                             sampleNumber+=1;
                         }@Override
                         public void onCancelled(DatabaseError databaseError) {}
@@ -206,7 +206,7 @@ public class LockActivity extends AppCompatActivity {
     }
 
     private void pushTouchToFirebase() {
-        if(sampleNumber > 20) {
+        if(sampleNumber > 25) {
             Toast.makeText(getApplicationContext(), R.string.full_samples, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -258,7 +258,7 @@ public class LockActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
                     if (b && checkSizeLockPins(pinLength)) {
-                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                        counterS.setText(String.valueOf(sampleNumber).concat("/25"));
                         sampleNumber += 1;
                         lockPins = new ArrayList<>();
                         mIndicatorDots.updateDot(lockPins.size());
