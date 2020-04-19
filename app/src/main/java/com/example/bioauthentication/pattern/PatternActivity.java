@@ -93,30 +93,8 @@ public class PatternActivity extends AppCompatActivity {
                         currentPass = currentUser.getPattern8();
                     }
                     currentPassword.setText(currentPass);
-
-                    String uid = Integer.toString(currentUser.getUid());
-                    String lenPattern = "pattern-length-";
-                    String numb = Integer.toString((pinLength));
-                    lenPattern = lenPattern + numb;
-                    Log.d("TAG", "len= " + lenPattern);
-                    DatabaseReference patternRef = db.getReference().child("patterns").child(uid).child(testType).child(lenPattern);
-
-                    ValueEventListener valueEventListener = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            countSamples = dataSnapshot.getChildrenCount();
-                            Log.d("TAG", "count= " + countSamples);
-                            sampleNumber = (int) countSamples;
-                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
-                            callBack(false);
-                            sampleNumber += 1;
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    };
-                    patternRef.addListenerForSingleValueEvent(valueEventListener);
+                    AsyncTaskCount asyncTaskCount = new AsyncTaskCount();
+                    asyncTaskCount.execute();
 
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), R.string.invalid_number, Toast.LENGTH_SHORT).show();
@@ -232,6 +210,44 @@ public class PatternActivity extends AppCompatActivity {
                         callBack(false);
                     }
                 });
+            } catch (Error e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+    }
+
+    private class AsyncTaskCount extends AsyncTask<Void,Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                String uid = Integer.toString(currentUser.getUid());
+                String lenPattern = "pattern-length-";
+                String numb = Integer.toString((pinLength));
+                lenPattern = lenPattern + numb;
+                Log.d("TAG", "len= " + lenPattern);
+                DatabaseReference patternRef = db.getReference().child("patterns").child(uid).child(testType).child(lenPattern);
+
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        countSamples = dataSnapshot.getChildrenCount();
+                        Log.d("TAG", "count= " + countSamples);
+                        sampleNumber = (int) countSamples;
+                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                        callBack(false);
+                        sampleNumber += 1;
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                patternRef.addListenerForSingleValueEvent(valueEventListener);
+
             } catch (Error e) {
                 e.printStackTrace();
             }
