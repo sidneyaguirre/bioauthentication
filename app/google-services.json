@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "933776085159",
-    "firebase_url": "https://bio-authentication.firebaseio.com",
-    "project_id": "bio-authentication",
-    "storage_bucket": "bio-authentication.appspot.com"
+    "project_number": "907900875099",
+    "firebase_url": "https://bio-authentication2.firebaseio.com",
+    "project_id": "bio-authentication2",
+    "storage_bucket": "bio-authentication2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:933776085159:android:fc7e575fd519650dd8cb82",
+        "mobilesdk_app_id": "1:907900875099:android:7df84cf9ae13eec2bc2a7e",
         "android_client_info": {
           "package_name": "com.example.bioauthentication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "933776085159-d7macaft4qva2m3vnhui38oso24cb4c8.apps.googleusercontent.com",
+          "client_id": "907900875099-eu6pbtclqqfog2llg2kra1kv15u557qh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAT1qvnrsYCYSTptC066SCZt3iZ5Y2NxD0"
+          "current_key": "AIzaSyAwpBuIr78dlL_BrTyRNL4L8d48Bk5wXTc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "933776085159-d7macaft4qva2m3vnhui38oso24cb4c8.apps.googleusercontent.com",
+              "client_id": "907900875099-eu6pbtclqqfog2llg2kra1kv15u557qh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
