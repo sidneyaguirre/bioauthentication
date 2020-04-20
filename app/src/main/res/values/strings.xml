@@ -40,4 +40,5 @@
     <string name="without_add">Sample couldn\'t save</string>
     <string name="full_samples">Already you have added all samples</string>
     <string name="sample_text">"Sample: "</string>
+    <string name="sample_count_alert">"This operation might take 20 seconds"</string>
 </resources>

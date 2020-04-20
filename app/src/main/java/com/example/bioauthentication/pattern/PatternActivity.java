@@ -1,5 +1,7 @@
 package com.example.bioauthentication.pattern;
 
+import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 //import android.support.v7.app.ActionBarActivity;
 import com.example.bioauthentication.R;
@@ -49,6 +52,7 @@ public class PatternActivity extends AppCompatActivity {
     private int sampleNumber;
     private long countSamples;
     private FirebaseDatabase db;
+    AlertDialog myAlert;
     TextView counterS;
     TextView currentPassword;
     SharedPreferences prefs;
@@ -62,7 +66,7 @@ public class PatternActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         counterS = findViewById(R.id.textCounter);
         currentPassword = (TextView) findViewById(R.id.textPassword2);
-
+        myAlert = showDialog();
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -93,6 +97,8 @@ public class PatternActivity extends AppCompatActivity {
                         currentPass = currentUser.getPattern8();
                     }
                     currentPassword.setText(currentPass);
+
+                    myAlert.show();
                     AsyncTaskCount asyncTaskCount = new AsyncTaskCount();
                     asyncTaskCount.execute();
 
@@ -154,7 +160,7 @@ public class PatternActivity extends AppCompatActivity {
     }
 
     private void pushTouchToFirebase(final String password, final ArrayList<LockPattern> nodes) {
-        if (sampleNumber > 20) {
+        if (sampleNumber > 25) {
             Toast.makeText(getApplicationContext(), R.string.full_samples, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -201,7 +207,7 @@ public class PatternActivity extends AppCompatActivity {
                         Date resultdate = new Date(System.currentTimeMillis());
                         Log.d("FirebaseTxOnComplete: ", sdf.format(resultdate));
                         if (b) {
-                            counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                            counterS.setText(String.valueOf(sampleNumber).concat("/25"));
                             sampleNumber += 1;
                             Toast.makeText(getApplicationContext(), R.string.new_sample_added, Toast.LENGTH_SHORT).show();
                         } else {
@@ -218,28 +224,36 @@ public class PatternActivity extends AppCompatActivity {
 
     }
 
+
     private class AsyncTaskCount extends AsyncTask<Void,Void, Void> {
 
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
+
                 String uid = Integer.toString(currentUser.getUid());
                 String lenPattern = "pattern-length-";
                 String numb = Integer.toString((pinLength));
                 lenPattern = lenPattern + numb;
-                Log.d("TAG", "len= " + lenPattern);
-                DatabaseReference patternRef = db.getReference().child("patterns").child(uid).child(testType).child(lenPattern);
+                Log.d("AsyncCount", "len= " + lenPattern);
+                DatabaseReference patternRef = db.getReference().child("patterns/" + uid + "/" + testType + "/" + lenPattern + "/");
 
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         countSamples = dataSnapshot.getChildrenCount();
-                        Log.d("TAG", "count= " + countSamples);
+                        Log.d("AsyncCount", "count= " + countSamples);
                         sampleNumber = (int) countSamples;
-                        counterS.setText(String.valueOf(sampleNumber).concat("/20"));
+                        counterS.setText(String.valueOf(sampleNumber).concat("/25"));
                         callBack(false);
                         sampleNumber += 1;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                myAlert.dismiss();
+                            }
+                        });
                     }
 
                     @Override
@@ -255,5 +269,13 @@ public class PatternActivity extends AppCompatActivity {
         }
 
     }
+
+    private AlertDialog showDialog() {
+        return new AlertDialog.Builder(this)
+                .setMessage(R.string.sample_count_alert)
+                .setCancelable(false)
+                .create();
+    }
+
 
 }
