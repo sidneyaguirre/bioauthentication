@@ -28,5 +28,9 @@
     <string name="wrong_len8">La longitud del PIN 8 debe ser ocho digitos</string>
     <string name="alert_dialog_title">Selecciona una longitud de Pin</string>
     <string name="reset_sample">Reiniciar ultima muestra</string>
-    <string name="sample_count_alert">"Esta operación puede tomar 20 segundos aprox."</string>
+    <string name="sample_count_alert">"Por favor espera, esta operación puede tomar 20 segundos aprox."</string>
+    <string name="sample_text">"Muestra: "</string>
+    <string name="tittle_alert_dialog">"Procesando..."</string>
+
+
 </resources>

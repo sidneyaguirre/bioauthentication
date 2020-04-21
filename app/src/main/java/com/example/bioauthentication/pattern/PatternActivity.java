@@ -97,7 +97,7 @@ public class PatternActivity extends AppCompatActivity {
                         currentPass = currentUser.getPattern8();
                     }
                     currentPassword.setText(currentPass);
-
+                    
                     myAlert.show();
                     AsyncTaskCount asyncTaskCount = new AsyncTaskCount();
                     asyncTaskCount.execute();
@@ -272,6 +272,7 @@ public class PatternActivity extends AppCompatActivity {
 
     private AlertDialog showDialog() {
         return new AlertDialog.Builder(this)
+                .setTitle(R.string.tittle_alert_dialog)
                 .setMessage(R.string.sample_count_alert)
                 .setCancelable(false)
                 .create();
