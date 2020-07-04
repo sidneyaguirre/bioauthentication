@@ -53,4 +53,20 @@ public class utils {
             }
         });
     }
+
+    public static View.OnClickListener launchNewActivity(final Context appContext, final Class activityToLaunch) {
+        return (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent intent = new Intent(appContext, activityToLaunch);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    /*Bundle b = new Bundle();
+                    b.putSerializable("user", selectedUser);
+                    b.putString("testType",testTypeValue);
+                    intent.putExtras(b);*/
+                    appContext.startActivity(intent);
+            }
+        });
+    }
 }
