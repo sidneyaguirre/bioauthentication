@@ -68,7 +68,6 @@ public class PatternActivity extends AppCompatActivity {
         if (b != null) {
             currentUser = (User) b.get("user");
             testType = (String) b.get("testType");
-//            LockPin currentP = (LockPin) b.get("pin");
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -8,12 +8,13 @@
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SelectionActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -21,15 +22,18 @@
             android:screenOrientation="unspecified"
             android:theme="@style/AppTheme">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".pattern.PatternActivity"/>
+        <activity android:name=".pattern.PatternActivity" />
+        <activity android:name=".pattern.PatternTestActivity" />
         <activity android:name=".pin.LockActivity" />
+        <activity android:name=".pin.LockTestActivity" />
         <activity android:name=".home.HomeScreenActivity" />
-        <activity android:name=".user.NewUserActivity"/>
+        <activity android:name=".home.HomeTestScreenActivity" />
+        <activity android:name=".user.NewUserActivity" />
         <activity android:name=".ProgramActivity" />
     </application>
 

@@ -40,4 +40,11 @@
     <string name="without_add">Sample couldn\'t save</string>
     <string name="full_samples">Already you have added all samples</string>
     <string name="sample_text">"Sample: "</string>
+    <string name="train_button">train</string>
+    <string name="test_button">test</string>
+    <string name="select_option_text">Select an option</string>
+    <string name="empty_values_user">Select a valid user</string>
+    <string name="error_request">Error requesting to server</string>
+    <string name="granted_access">granted access</string>
+    <string name="denied_access">Denied access</string>
 </resources>

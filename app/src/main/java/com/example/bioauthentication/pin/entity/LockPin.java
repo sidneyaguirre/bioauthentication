@@ -16,13 +16,13 @@ import lombok.ToString;
 @ToString
 public class LockPin {
     @Setter private String digit;
-    @Setter private Float x;
-    @Setter private Float y;
+    @Setter @Getter private Float x;
+    @Setter @Getter private Float y;
     @Setter @Getter private Long timeEventDown, timeEventUp;
-    @Setter private Long timeBetweenTouch;
-    @Setter private Long timeLapsePress;
-    @Setter private Float area;
-    @Setter private Float press;
+    @Setter @Getter private Long timeBetweenTouch;
+    @Setter @Getter private Long timeLapsePress;
+    @Setter @Getter private Float area;
+    @Setter @Getter private Float press;
 
     public LockPin(LockPin clone){
         this.digit = clone.digit;
