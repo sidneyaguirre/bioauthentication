@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bioauthentication.R;
 import com.example.bioauthentication.pattern.PatternActivity;
+import com.example.bioauthentication.pattern.PatternTestActivity;
 import com.example.bioauthentication.pin.LockActivity;
+import com.example.bioauthentication.pin.LockTestActivity;
 import com.example.bioauthentication.user.NewUserActivity;
 import com.example.bioauthentication.user.User;
 import com.google.firebase.database.DataSnapshot;
@@ -70,8 +72,8 @@ public class HomeTestScreenActivity extends AppCompatActivity {
 
         usersDropDown.setAdapter(usersAdapter);
 
-//        patternBtn.setOnClickListener(utils.setClickListener(this, PatternActivity.class, usersDropDown, testTypesDropDown, mUsers));
-//        pinBtn.setOnClickListener(utils.setClickListener(this, LockActivity.class, usersDropDown, testTypesDropDown, mUsers));
+        patternBtn.setOnClickListener(utils.launchTestActivity(this, PatternTestActivity.class, usersDropDown, mUsers));
+        pinBtn.setOnClickListener(utils.launchTestActivity(this, LockTestActivity.class, usersDropDown, mUsers));
 
     }
 

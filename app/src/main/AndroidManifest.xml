@@ -28,7 +28,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".pattern.PatternActivity" />
+        <activity android:name=".pattern.PatternTestActivity" />
         <activity android:name=".pin.LockActivity" />
+        <activity android:name=".pin.LockTestActivity" />
         <activity android:name=".home.HomeScreenActivity" />
         <activity android:name=".home.HomeTestScreenActivity" />
         <activity android:name=".user.NewUserActivity" />

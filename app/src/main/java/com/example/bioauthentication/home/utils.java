@@ -54,6 +54,33 @@ public class utils {
         });
     }
 
+    public static View.OnClickListener launchTestActivity(final Context appContext, final Class activityToLaunch, final AutoCompleteTextView usersDropDown, final ArrayList<User> users) {
+        return (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String usersValue = usersDropDown.getText().toString();
+                if(!usersValue.isEmpty()){
+                    Intent intent = new Intent(appContext, activityToLaunch);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    User selectedUser = null;
+                    for(int i=0; i < users.size(); i++){
+                        if (users.get(i).getName().equalsIgnoreCase(usersValue)){
+                            selectedUser = users.get(i);
+                        }
+                    }
+                    Bundle b = new Bundle();
+                    b.putSerializable("user", selectedUser);
+                    intent.putExtras(b);
+                    appContext.startActivity(intent);
+                } else {
+                    Toast.makeText(appContext, R.string.empty_values_user,Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+
+
     public static View.OnClickListener launchNewActivity(final Context appContext, final Class activityToLaunch) {
         return (new View.OnClickListener() {
             @Override
